@@ -37,6 +37,10 @@ const userSchema = new Schema(
       max: 15000,
       required: true,
     },
+    dailyNorma: {
+      type: String,
+      default: "1,5L",
+    },
     token: {
       type: String,
     },
