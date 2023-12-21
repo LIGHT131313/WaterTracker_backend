@@ -3,29 +3,43 @@ import { Schema, model } from "mongoose";
 import { handleSaveError, preUpdate } from "./hooks.js";
 import {
   emailRegexp,
-  subscriptionList,
+  gender,
 } from "../utils/validation/userValidationSchemas.js";
 
 const userSchema = new Schema(
   {
-    password: {
+    name: {
       type: String,
-      minLength: 6,
-      required: [true, "Set password for user"],
     },
     email: {
       type: String,
       match: emailRegexp,
-      required: [true, "Email is required"],
       unique: true,
+      required: true,
     },
-    subscription: {
+    password: {
       type: String,
-      enum: subscriptionList,
-      default: "starter",
+      required: [true, "Set password for user"],
     },
-    avatarURL: String,
-    token: String,
+    gender: {
+      type: String,
+      enum: gender,
+      default: "null",
+    },
+    avatarURL: {
+      type: String,
+      default: null,
+    },
+    waterRate: {
+      type: Number,
+      default: 0,
+      min: 0,
+      max: 15000,
+      required: true,
+    },
+    token: {
+      type: String,
+    },
     verify: {
       type: Boolean,
       default: false,
@@ -35,7 +49,7 @@ const userSchema = new Schema(
       required: [true, "Verify token is required"],
     },
   },
-  { versionKey: false }
+  { versionKey: false, timestamps: true }
 );
 
 userSchema.post("save", handleSaveError);
