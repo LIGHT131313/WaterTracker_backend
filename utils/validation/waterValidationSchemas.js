@@ -5,5 +5,8 @@ export const waterAddSchema = Joi.object({
     "any.required": `"waterVolume" missing required name field`,
     "string.base": `"waterVolume" must be number`,
   }),
-  date: Joi.date().required(),
+  date: Joi.string()
+    .isoDate()
+    .regex(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/),
 });
+//date example - 2023-11-15T14:30 without seconds and miliseconds
