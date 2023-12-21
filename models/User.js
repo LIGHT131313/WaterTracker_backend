@@ -19,6 +19,8 @@ const userSchema = new Schema(
     },
     password: {
       type: String,
+      minLength: 8,
+      maxLength: 64,
       required: [true, "Set password for user"],
     },
     gender: {

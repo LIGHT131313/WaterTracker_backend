@@ -21,6 +21,10 @@ export const userWaterRateSchema = Joi.object({
   waterRate: Joi.number().min(0).max(15000).required(),
 });
 
+export const userDailyNormaSchema = Joi.object({
+  waterRate: Joi.string(),
+});
+
 export const updateUserInfoSchema = Joi.object({
   name: Joi.string(),
   email: Joi.string().pattern(emailRegexp),
