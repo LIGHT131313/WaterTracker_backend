@@ -9,7 +9,7 @@ import { validateBody } from "../decorators/index.js";
 import {
   userRegisterSchema,
   userLoginSchema,
-  userSubscriptionSchema,
+  // userSubscriptionSchema,
   userEmailSchema,
 } from "../utils/validation/userValidationSchemas.js";
 
@@ -42,13 +42,13 @@ authRouter.get("/current", authenticate, authController.getCurrent);
 
 authRouter.post("/logout", authenticate, authController.logout);
 
-authRouter.patch(
-  "/subscription",
-  authenticate,
-  isEmptyBody,
-  validateBody(userSubscriptionSchema),
-  authController.subscription
-);
+// authRouter.patch(
+//   "/subscription",
+//   authenticate,
+//   isEmptyBody,
+//   validateBody(userSubscriptionSchema),
+//   authController.subscription
+// );
 
 authRouter.patch(
   "/avatars",
