@@ -26,7 +26,7 @@ const userSchema = new Schema(
     gender: {
       type: String,
       enum: gender,
-      default: "null",
+      default: null,
     },
     avatarURL: {
       type: String,
@@ -41,15 +41,15 @@ const userSchema = new Schema(
     },
     dailyNorma: {
       type: String,
-      default: "1,5L",
+      default: 1500,
     },
     token: {
       type: String,
     },
-    verify: {
-      type: Boolean,
-      default: false,
-    },
+    // verify: {
+    //   type: Boolean,
+    //   default: false,
+    // },
     verificationToken: {
       type: String,
       required: [true, "Verify token is required"],

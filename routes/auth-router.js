@@ -9,7 +9,6 @@ import { validateBody } from "../decorators/index.js";
 import {
   userRegisterSchema,
   userLoginSchema,
-  // userSubscriptionSchema,
   userEmailSchema,
 } from "../utils/validation/userValidationSchemas.js";
 
@@ -22,14 +21,14 @@ authRouter.post(
   authController.register
 );
 
-authRouter.get("/verify/:verificationToken", authController.verify);
+// authRouter.get("/verify/:verificationToken", authController.verify);
 
-authRouter.post(
-  "/verify",
-  isEmptyBody,
-  validateBody(userEmailSchema),
-  authController.resendVerify
-);
+// authRouter.post(
+//   "/verify",
+//   isEmptyBody,
+//   validateBody(userEmailSchema),
+//   authController.resendVerify
+// );
 
 authRouter.post(
   "/login",
@@ -38,7 +37,7 @@ authRouter.post(
   authController.login
 );
 
-authRouter.get("/current", authenticate, authController.getCurrent);
+// authRouter.get("/current", authenticate, authController.getCurrent);
 
 authRouter.post("/logout", authenticate, authController.logout);
 
@@ -50,11 +49,11 @@ authRouter.post("/logout", authenticate, authController.logout);
 //   authController.subscription
 // );
 
-authRouter.patch(
-  "/avatars",
-  authenticate,
-  upload.single("avatar"),
-  authController.avatar
-);
+// authRouter.patch(
+//   "/avatars",
+//   authenticate,
+//   upload.single("avatar"),
+//   authController.avatar
+// );
 
 export default authRouter;

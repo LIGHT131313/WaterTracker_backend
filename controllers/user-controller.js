@@ -1,0 +1,98 @@
+import bcrypt from "bcryptjs";
+
+import fs from "fs/promises";
+
+import User from "../models/User.js";
+
+import { ctrlWrapper } from "../decorators/index.js";
+import { HttpError, cloudinary } from "../helpers/index.js";
+
+const getCurrent = async (req, res) => {
+  const {
+    name = "",
+    email,
+    gender,
+    avatarURL,
+    waterRate,
+    dailyNorma,
+  } = req.user;
+  res.json({ name, email, gender, avatarURL, waterRate, dailyNorma });
+};
+
+const updateUserInfo = async (req, res) => {
+  const { outdatedPassword, newPassword, repeatNewPassword, newEmail } =
+    req.body;
+  const { _id, currentEmail } = req.user;
+
+  let hashedNewPassword;
+
+  if (outdatedPassword && newPassword && repeatNewPassword) {
+    const user = await User.findById(_id);
+    if (!user) {
+      throw HttpError(404, "User not found");
+    }
+
+    const { password } = user;
+
+    if (outdatedPassword === newPassword) {
+      throw HttpError(
+        400,
+        "The new password must be different from the old one"
+      );
+    }
+
+    const comparedPassword = await bcrypt.compare(outdatedPassword, password);
+
+    if (!comparedPassword) {
+      throw HttpError(401, "Current password is incorrect");
+    }
+
+    hashedNewPassword = await bcrypt.hash(newPassword, 10);
+  }
+
+  if (newEmail && newEmail !== currentEmail) {
+    const userWithNewEmail = await User.findOne({ email: newEmail });
+
+    if (userWithNewEmail) {
+      throw HttpError(409, "Email is already in use");
+    }
+  }
+
+  const updatedUserData = { ...req.body };
+  if (hashedNewPassword) {
+    updatedUserData.password = hashedNewPassword;
+  }
+
+  const updatedUser = await User.findByIdAndUpdate(_id, updatedUserData, {
+    new: true,
+  });
+
+  const { name = "", gender, email, avatarURL } = updatedUser;
+  res.status(200).json({ email, name, gender, avatarURL });
+};
+
+const avatar = async (req, res) => {
+  const { _id } = req.user;
+  if (!req.file) {
+    throw HttpError(400, "File not found");
+  }
+  const { path } = req.file;
+  const { url: avatarURL } = await cloudinary.uploader.upload(req.file.path, {
+    folder: "user_avatars",
+    width: 250,
+    height: 250,
+    crop: "pad",
+  });
+  await fs.unlink(path);
+  await User.findByIdAndUpdate(_id, { avatarURL });
+
+  res.status(200).json({
+    avatarURL,
+  });
+};
+
+export default {
+  avatar: ctrlWrapper(avatar),
+  getCurrent: ctrlWrapper(getCurrent),
+  updateUserInfo: ctrlWrapper(updateUserInfo),
+};
