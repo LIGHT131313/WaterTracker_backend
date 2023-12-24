@@ -1,0 +1,526 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "version": "1.0.0",
+    "title": "WaterTracker Backend",
+    "description": "API documentation for project WaterTracker",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://watertracker-backend.onrender.com"
+    },
+    {
+      "url": "http://localhost:4000"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Auth",
+      "description": "Authorization endpoints"
+    },
+    {
+      "name": "User",
+      "description": "User endpoints"
+    },
+    {
+      "name": "Waterrate",
+      "description": "Waterrate endpoints"
+    },
+    {
+      "name": "Water",
+      "description": "Water endpoints"
+    },
+    {
+      "name": "Today",
+      "description": "Today endpoints"
+    },
+    {
+      "name": "Month",
+      "description": "Month endpoints"
+    }
+  ],
+  "paths": {
+    "/auth/register": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Registration user",
+        "operationId": "authController.register",
+        "parameters": [],
+        "requestBody": {
+          "description": "**email** - string, *required*\n\n**password** - string, *required*",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegistrationLoginRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "New User Registered\n\n**email** - string\n\n**gender** - string\n\n**avatarURL** - string\n\n**waterRate** - integer\n\n**dailyNorma** - integer",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserSchema"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error or Empty body",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorBadRequesResponse"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Email in use"
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Login user",
+        "operationId": "authController.login",
+        "parameters": [],
+        "requestBody": {
+          "description": "**email** - string, *required*\n\n**password** - string, *required*\n",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegistrationLoginRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Created session for existing user\n\n**token** - string\n\n**email** - string\n\n**gender** - string\n\n**avatarURL** - string\n\n**waterRate** - integer\n\n**dailyNorma** - integer",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserWithToken"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error or Empty body",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorBadRequesResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Email or password is wrong"
+          }
+        }
+      }
+    },
+    "/auth/logout": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Logout user",
+        "description": "",
+        "operationId": "authController.logout",
+        "parameters": [],
+        "responses": {
+          "204": {
+            "description": "User logout"
+          },
+          "401": {
+            "description": "Bearer auth failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_401"
+                },
+                "example": {
+                  "message": "Not authorized"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/user/avatar": {
+      "post": {
+        "tags": ["User"],
+        "summary": "Adding/changing a user's avatar",
+        "operationId": "userController.avatar",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/AvatarUpload"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully adding an avatar\n\n**avatarURL** - string",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AvatarResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "File error or Empty body",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorBadRequesResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Bearer auth failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_401"
+                },
+                "example": {
+                  "message": "Not authorized"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected field"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/user/current": {
+      "get": {
+        "tags": ["User"],
+        "summary": "Get current user info",
+        "description": "",
+        "operationId": "userController.getCurrent",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Logged user returned\n\n**name** - string\n\n**email** - string\n\n**gender** - string\n\n**avatarURL** - string\n\n**waterRate** - integer\n\n**dailyNorma** - integer\n",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserSchema"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Bearer auth failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_401"
+                },
+                "example": {
+                  "message": "Not authorized"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/user/edit": {
+      "patch": {
+        "tags": ["User"],
+        "summary": "Edit user information",
+        "operationId": "userController.updateUserInfo",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EditUserInformation"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "User information updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EditedUserInformation"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorBadRequesResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Bearer auth failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_401"
+                },
+                "example": {
+                  "message": "Not authorized"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "UserSchema": {
+        "required": ["email", "gender", "avatarURL", "waterRate", "dailyNorma"],
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "user@gmail.com"
+          },
+          "gender": {
+            "type": "string",
+            "example": "male",
+            "default": null,
+            "enum": ["male", "female"]
+          },
+          "avatarURL": {
+            "type": "string",
+            "example": null
+          },
+          "waterRate": {
+            "type": "integer",
+            "example": 0
+          },
+          "dailyNorma": {
+            "type": "integer",
+            "example": 1500
+          }
+        }
+      },
+      "RegistrationLoginRequest": {
+        "required": ["email", "password"],
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "user@gmail.com"
+          },
+          "password": {
+            "type": "string",
+            "example": "qwerty123"
+          }
+        }
+      },
+      "UserWithToken": {
+        "required": ["user", "token"],
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ODZjOWRjMTlmOTcxMjY5OTMzODQ5MCIsImlhdCI6MTcwMzMzMzE4MiwiZXhwIjoxNzAzNDE1OTgyfQ._o8tF4gIcZpycR5jiu9s5-CQ4EhkwzMomatg6sA-4do"
+          },
+          "user": {
+            "$ref": "#/components/schemas/UserSchema"
+          }
+        }
+      },
+      "AvatarUpload": {
+        "required": ["avatar"],
+        "type": "object",
+        "properties": {
+          "avatar": {
+            "type": "string",
+            "format": "binary"
+          }
+        }
+      },
+      "AvatarResponse": {
+        "required": ["avatarURL"],
+        "type": "object",
+        "properties": {
+          "avatarURL": {
+            "type": "string",
+            "example": "http://res.cloudinary.com/doj55bihz/image/upload/v1703335266/user_avatars/fwkykl5kcqmcoc5p3qkn.jpg"
+          }
+        }
+      },
+      "EditUserInformation": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "user@gmail.com"
+          },
+          "name": {
+            "type": "string",
+            "example": "User"
+          },
+          "gender": {
+            "type": "string",
+            "example": "male",
+            "enum": ["male", "female"]
+          },
+          "password": {
+            "type": "string",
+            "example": "qwerty123"
+          }
+        }
+      },
+      "EditedUserInformation": {
+        "required": ["email", "name", "gender", "avatarURL"],
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "user@gmail.com"
+          },
+          "name": {
+            "type": "string",
+            "example": "user"
+          },
+          "gender": {
+            "type": "string",
+            "example": "male",
+            "default": null,
+            "enum": ["male", "female"]
+          },
+          "avatarURL": {
+            "type": "string",
+            "example": "http://res.cloudinary.com/doj55bihz/image/upload/v1703335266/user_avatars/fwkykl5kcqmcoc5p3qkn.jpg"
+          }
+        }
+      },
+      "errorBadRequesResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "description": "Error status code",
+            "example": 400
+          },
+          "message": {
+            "type": "string",
+            "description": "Error message",
+            "example": "Bad request"
+          }
+        }
+      },
+      "errorConflictResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "description": "Error status code",
+            "example": 409
+          },
+          "message": {
+            "type": "string",
+            "description": "Error message",
+            "example": "User with email - user@example.com, already exist"
+          }
+        }
+      },
+      "errorUnauthorizedResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "description": "Error status code",
+            "example": 401
+          },
+          "message": {
+            "type": "string",
+            "description": "Error message",
+            "example": "Not authorized"
+          }
+        }
+      },
+      "errorNotFoundResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "description": "Error status code",
+            "example": 404
+          },
+          "message": {
+            "type": "string",
+            "description": "Error message",
+            "example": "Not found"
+          }
+        }
+      },
+      "inline_response_401": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Description of the error."
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}
