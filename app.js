@@ -4,6 +4,8 @@ import cors from "cors";
 import "dotenv/config";
 
 import authRouter from "./routes/auth-router.js";
+import waterRateRouter from "./routes/waterRate-router.js";
+import waterRouter from "./routes/water-router.js";
 import userRouter from "./routes/user/user-router.js";
 
 const app = express();
@@ -17,8 +19,8 @@ app.use(express.static("public"));
 
 app.use("/auth", authRouter);
 app.use("/user", userRouter);
-// app.use("/waterrate", waterrateRouter);
-// app.use("/water", waterRouter);
+app.use("/waterrate", waterRateRouter);
+app.use("/water", waterRouter);
 // app.use("/month", monthRouter);
 // app.use("/today", todayRouter);
 
