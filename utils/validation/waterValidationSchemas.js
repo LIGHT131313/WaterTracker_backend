@@ -13,7 +13,5 @@ export const waterUpdateSchema = Joi.object({
   waterVolume: Joi.number().min(0).max(5000).messages({
     "string.base": `"waterVolume" must be number`,
   }),
-  date: Joi.string()
-    .isoDate()
-    .regex(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/),
+  date: Joi.string().isoDate(),
 });

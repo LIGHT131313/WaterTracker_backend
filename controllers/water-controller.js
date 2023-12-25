@@ -23,7 +23,14 @@ const updateWaterValueByID = async (req, res) => {
   res.json();
 };
 const deleteteWaterValueByID = async (req, res) => {
-  res.json();
+  const { id } = req.params;
+  const { _id: owner } = req.user;
+
+  const result = await WaterValue.findOneAndDelete({ _id: id, owner });
+  if (!result) {
+    throw HttpError(404, `Water Volume with id=${id} not found`);
+  }
+  res.json({ message: "Water Volume deleted" });
 };
 
 export default {
