@@ -8,25 +8,17 @@ import { ctrlWrapper } from "../decorators/index.js";
 import { HttpError, cloudinary } from "../helpers/index.js";
 
 const getCurrent = async (req, res) => {
-  const {
-    name = "",
-    email,
-    gender,
-    avatarURL,
-    waterRate,
-    dailyNorma,
-  } = req.user;
-  res.json({ name, email, gender, avatarURL, waterRate, dailyNorma });
+  const { name = "", email, gender, avatarURL, waterRate } = req.user;
+  res.json({ name, email, gender, avatarURL, waterRate });
 };
 
 const updateUserInfo = async (req, res) => {
-  const { outdatedPassword, newPassword, repeatNewPassword, newEmail } =
-    req.body;
+  const { outdatedPassword, newPassword, newEmail } = req.body;
   const { _id, currentEmail } = req.user;
 
   let hashedNewPassword;
 
-  if (outdatedPassword && newPassword && repeatNewPassword) {
+  if (outdatedPassword && newPassword) {
     const user = await User.findById(_id);
     if (!user) {
       throw HttpError(404, "User not found");
@@ -67,8 +59,8 @@ const updateUserInfo = async (req, res) => {
     new: true,
   });
 
-  const { name = "", gender, email, avatarURL } = updatedUser;
-  res.status(200).json({ email, name, gender, avatarURL });
+  const { name = "", gender, email } = updatedUser;
+  res.status(200).json({ email, name, gender });
 };
 
 const avatar = async (req, res) => {

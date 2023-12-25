@@ -26,7 +26,7 @@ const userSchema = new Schema(
     gender: {
       type: String,
       enum: gender,
-      default: null,
+      default: "female",
     },
     avatarURL: {
       type: String,
@@ -38,10 +38,6 @@ const userSchema = new Schema(
       min: 0,
       max: 15000,
       required: true,
-    },
-    dailyNorma: {
-      type: String,
-      default: 1500,
     },
     token: {
       type: String,
