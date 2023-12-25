@@ -10,8 +10,6 @@ export const waterAddSchema = Joi.object({
 //date example - 2023-11-15T14:30 without seconds and miliseconds
 
 export const waterUpdateSchema = Joi.object({
-  waterVolume: Joi.number().min(0).max(5000).messages({
-    "string.base": `"waterVolume" must be number`,
-  }),
+  waterVolume: Joi.number().min(0).max(5000),
   date: Joi.string().isoDate(),
 });
