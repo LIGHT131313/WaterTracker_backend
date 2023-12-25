@@ -1,12 +1,12 @@
 import express from "express";
 
-import waterRateController from "../controllers/waterRate-controller.js";
 import { validateBody } from "../decorators/index.js";
-import {
-  waterAddSchema,
-  waterUpdateSchema,
-} from "../utils/validation/waterValidationSchemas.js";
+
+import { userWaterRateSchema } from "../utils/validation/userValidationSchemas.js";
+
 import { isEmptyBody, isValidId, authenticate } from "../middlewares/index.js";
+
+import waterRateControlles from "../controllers/waterRate-controller.js";
 
 const waterRateRouter = express.Router();
 
@@ -15,18 +15,8 @@ waterRateRouter.use(authenticate);
 waterRateRouter.post(
   "/",
   isEmptyBody,
-  validateBody(waterAddSchema),
-  waterRateController.addWaterRate
+  validateBody(userWaterRateSchema),
+  waterRateControlles.updateWaterRate
 );
-
-waterRateRouter.patch(
-  "/:id",
-  isValidId,
-  isEmptyBody,
-  validateBody(waterUpdateSchema),
-  waterRateController.updateWaterRate
-);
-
-waterRateRouter.delete("/:id", isValidId, waterRateController.deleteWaterRate);
 
 export default waterRateRouter;

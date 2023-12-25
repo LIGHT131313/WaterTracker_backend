@@ -1,6 +1,6 @@
 import express from "express";
 
-import monthlyController from "../controllers/waterRate-controller.js";
+import monthlyControllers from "../controllers/month-controller.js";
 
 import { authenticate } from "../middlewares/index.js";
 
@@ -8,6 +8,6 @@ const monthlyRouter = express.Router();
 
 monthlyRouter.use(authenticate);
 
-monthlyRouter.patch("/", monthlyController.getMonthlyStatistic);
+monthlyRouter.patch("/", monthlyControllers.getMonthlyStatistic);
 
 export default monthlyRouter;

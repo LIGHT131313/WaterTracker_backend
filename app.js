@@ -9,6 +9,8 @@ import authRouter from "./routes/auth-router.js";
 import waterRateRouter from "./routes/waterRate-router.js";
 import waterRouter from "./routes/water-router.js";
 import userRouter from "./routes/user/user-router.js";
+import todayRouter from "./routes/today-router.js";
+import monthRouter from "./routes/month-router.js";
 
 const swaggerDocument = JSON.parse(
   await readFile(new URL("./swagger.json", import.meta.url))
@@ -26,8 +28,8 @@ app.use("/auth", authRouter);
 app.use("/user", userRouter);
 app.use("/waterrate", waterRateRouter);
 app.use("/water", waterRouter);
-// app.use("/month", monthRouter);
-// app.use("/today", todayRouter);
+app.use("/month", monthRouter);
+app.use("/today", todayRouter);
 app.use("/", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use((req, res) => {

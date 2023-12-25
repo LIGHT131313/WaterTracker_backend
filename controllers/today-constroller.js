@@ -6,7 +6,7 @@ import { ctrlWrapper } from "../decorators/index.js";
 import { HttpError } from "../helpers/index.js";
 
 const getDayliStatistic = async (req, res) => {
-  res.json();
+  // res.json();
 };
 
 export default {
