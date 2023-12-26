@@ -24,7 +24,6 @@ userRouter.post(
   "/avatar",
   authenticate,
   upload.single("avatar"),
-  isEmptyBody,
   userController.avatar
 );
 
