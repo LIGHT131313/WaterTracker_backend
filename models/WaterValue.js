@@ -19,9 +19,7 @@ const waterSchema = new Schema(
       ref: "user",
     },
   },
-  {
-    versionKey: false,
-  }
+  { versionKey: false }
 );
 
 waterSchema.post("save", handleSaveError);

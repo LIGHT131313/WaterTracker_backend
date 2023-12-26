@@ -30,6 +30,8 @@ waterRouter.patch(
   waterController.updateWaterValueByID
 );
 
+waterRouter.get("/:id", isValidId, waterController.getWaterValueByID);
+
 waterRouter.delete("/:id", isValidId, waterController.deleteteWaterValueByID);
 
 export default waterRouter;

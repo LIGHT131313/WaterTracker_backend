@@ -4,6 +4,14 @@ import { ctrlWrapper } from "../decorators/index.js";
 
 import { HttpError } from "../helpers/index.js";
 
+const getWaterValueByID = async (req, res) => {
+  const { id } = req.params;
+  const { _id: owner } = req.user;
+
+  const result = await WaterValue.findOne({ _id: id, owner });
+
+  res.json(result);
+};
 const addWaterValue = async (req, res) => {
   const { _id: owner } = req.user;
   const { date } = req.body;
@@ -72,4 +80,5 @@ export default {
   addWaterValue: ctrlWrapper(addWaterValue),
   updateWaterValueByID: ctrlWrapper(updateWaterValueByID),
   deleteteWaterValueByID: ctrlWrapper(deleteteWaterValueByID),
+  getWaterValueByID: ctrlWrapper(getWaterValueByID),
 };
