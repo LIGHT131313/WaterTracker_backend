@@ -43,6 +43,10 @@ const getDayliStatistic = async (req, res) => {
     },
   ]);
 
+  if (result.length === 0) {
+    throw HttpError(404, "Data Not Found");
+  }
+
   res.json(result);
 };
 
