@@ -10,6 +10,10 @@ const getDayliStatistic = async (req, res) => {
   const { date } = req.body;
   const { waterRate } = await User.findById(owner);
 
+  if (!waterRate) {
+    throw HttpError(500, "Internal Server Error");
+  }
+
   const result = await WaterValue.aggregate([
     {
       $match: {
@@ -44,7 +48,7 @@ const getDayliStatistic = async (req, res) => {
   ]);
 
   if (result.length === 0) {
-    throw HttpError(404, "Data Not Found");
+    throw HttpError(404, `Data for this Date: ${date} not found`);
   }
 
   res.json(result);
