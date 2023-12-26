@@ -9,8 +9,8 @@ import { validateBody } from "../decorators/index.js";
 import {
   userRegisterSchema,
   userLoginSchema,
-  userEmailSchema,
-} from "../utils/validation/userValidationSchemas.js";
+  // userEmailSchema,
+} from "../utils/validation/authValidationSchemas.js";
 
 const authRouter = express.Router();
 

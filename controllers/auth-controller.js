@@ -34,13 +34,11 @@ const register = async (req, res) => {
   // await sendEmail(verifyEmail);
 
   res.status(201).json({
-    user: {
-      email: newUser.email,
-      gender: newUser.gender,
-      avatarURL: newUser.avatarURL,
-      waterRate: newUser.waterRate,
-      dailyNorma: newUser.dailyNorma,
-    },
+    email: newUser.email,
+    name: newUser.name,
+    gender: newUser.gender,
+    avatarURL: newUser.avatarURL,
+    waterRate: newUser.waterRate,
   });
 };
 
@@ -113,10 +111,10 @@ const login = async (req, res) => {
     token,
     user: {
       email: user.email,
+      name: user.name,
       gender: user.gender,
       avatarURL: user.avatarURL,
       waterRate: user.waterRate,
-      dailyNorma: user.dailyNorma,
     },
   });
 };

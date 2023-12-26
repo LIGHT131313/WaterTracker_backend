@@ -19,9 +19,7 @@ const waterSchema = new Schema(
       ref: "user",
     },
   },
-  {
-    versionKey: false,
-  }
+  { versionKey: false }
 );
 
 waterSchema.post("save", handleSaveError);
@@ -30,6 +28,6 @@ waterSchema.pre("findOneAndUpdate", preUpdate);
 
 waterSchema.post("findOneAndUpdate", handleSaveError);
 
-const Water = model("water", waterSchema);
+const WaterValue = model("waterValue", waterSchema);
 
-export default Water;
+export default WaterValue;

@@ -6,16 +6,25 @@ import { authenticate, isEmptyBody, upload } from "../../middlewares/index.js";
 
 import { validateBody } from "../../decorators/index.js";
 
+import { updateUserInfoSchema } from "../../utils/validation/userValidationSchemas.js";
+
 const userRouter = express.Router();
 
 userRouter.get("/current", authenticate, userController.getCurrent);
 
-userRouter.patch("/edit", authenticate, userController.updateUserInfo);
+userRouter.patch(
+  "/edit",
+  authenticate,
+  isEmptyBody,
+  validateBody(updateUserInfoSchema),
+  userController.updateUserInfo
+);
 
 userRouter.post(
   "/avatar",
   authenticate,
   upload.single("avatar"),
+  isEmptyBody,
   userController.avatar
 );
 
