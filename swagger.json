@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "version": "1.0.0",
+    "version": "1.0.1",
     "title": "WaterTracker Backend",
     "description": "API documentation for project WaterTracker",
     "license": {
@@ -46,7 +46,9 @@
   "paths": {
     "/auth/register": {
       "post": {
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "summary": "Registration user",
         "operationId": "authController.register",
         "parameters": [],
@@ -63,7 +65,7 @@
         },
         "responses": {
           "201": {
-            "description": "New User Registered\n\n**email** - string\n\n**gender** - string\n\n**avatarURL** - string\n\n**waterRate** - integer\n\n**dailyNorma** - integer",
+            "description": "New User Registered\n\n**token** - string\n\n**email** - string\n\n**gender** - string\n\n**avatarURL** - string\n\n**waterRate** - integer",
             "content": {
               "application/json": {
                 "schema": {
@@ -83,14 +85,23 @@
             }
           },
           "409": {
-            "description": "Email in use"
+            "description": "Email in use",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorConflictResponse"
+                }
+              }
+            }
           }
         }
       }
     },
     "/auth/login": {
       "post": {
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "summary": "Login user",
         "operationId": "authController.login",
         "parameters": [],
@@ -107,7 +118,7 @@
         },
         "responses": {
           "200": {
-            "description": "Created session for existing user\n\n**token** - string\n\n**email** - string\n\n**gender** - string\n\n**avatarURL** - string\n\n**waterRate** - integer\n\n**dailyNorma** - integer",
+            "description": "Created session for existing user\n\n**token** - string\n\n**email** - string\n\n**gender** - string\n\n**avatarURL** - string\n\n**waterRate** - integer",
             "content": {
               "application/json": {
                 "schema": {
@@ -127,14 +138,26 @@
             }
           },
           "401": {
-            "description": "Email or password is wrong"
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorBadRequesResponse"
+                },
+                "example": {
+                  "message": "Email or password is wrong"
+                }
+              }
+            }
           }
         }
       }
     },
     "/auth/logout": {
       "post": {
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "summary": "Logout user",
         "description": "",
         "operationId": "authController.logout",
@@ -166,11 +189,14 @@
     },
     "/user/avatar": {
       "post": {
-        "tags": ["User"],
+        "tags": [
+          "User"
+        ],
         "summary": "Adding/changing a user's avatar",
         "operationId": "userController.avatar",
         "parameters": [],
         "requestBody": {
+          "description": "**avatar** - string($binary), image file,  *required*.\n",
           "content": {
             "multipart/form-data": {
               "schema": {
@@ -191,11 +217,14 @@
             }
           },
           "400": {
-            "description": "File error or Empty body",
+            "description": "Invalid file in request",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/errorBadRequesResponse"
+                },
+                "example": {
+                  "message": "Invalide file extention"
                 }
               }
             }
@@ -226,18 +255,19 @@
     },
     "/user/current": {
       "get": {
-        "tags": ["User"],
-        "summary": "Get current user info",
-        "description": "",
+        "tags": [
+          "User"
+        ],
+        "summary": "Get current user information",
         "operationId": "userController.getCurrent",
         "parameters": [],
         "responses": {
           "200": {
-            "description": "Logged user returned\n\n**name** - string\n\n**email** - string\n\n**gender** - string\n\n**avatarURL** - string\n\n**waterRate** - integer\n\n**dailyNorma** - integer\n",
+            "description": "Logged user returned\n\n**name** - string\n\n**email** - string\n\n**gender** - string\n\n**avatarURL** - string\n\n**waterRate** - integer\n",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UserSchema"
+                  "$ref": "#/components/schemas/UserCurrentSchema"
                 }
               }
             }
@@ -265,11 +295,14 @@
     },
     "/user/edit": {
       "patch": {
-        "tags": ["User"],
+        "tags": [
+          "User"
+        ],
         "summary": "Edit user information",
         "operationId": "userController.updateUserInfo",
         "parameters": [],
         "requestBody": {
+          "description": "Сan use one parameter *(except newPassword)*\n\n**email** - string\n\n**name** - string\n\n**gender** - string\n\n**outdatedPassword** - string, *required if added newPassword*\n\n**newPassword** - string\n",
           "content": {
             "application/json": {
               "schema": {
@@ -301,14 +334,14 @@
             }
           },
           "401": {
-            "description": "Bearer auth failed",
+            "description": "Bearer auth failed or Current password is incorrect",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/inline_response_401"
                 },
                 "example": {
-                  "message": "Not authorized"
+                  "message": "Current password is incorrect"
                 }
               }
             }
@@ -325,40 +358,49 @@
   "components": {
     "schemas": {
       "UserSchema": {
-        "required": ["email", "gender", "avatarURL", "waterRate", "dailyNorma"],
+        "required": [
+          "email",
+          "gender",
+          "avatarURL",
+          "waterRate"
+        ],
         "type": "object",
         "properties": {
           "email": {
             "type": "string",
-            "example": "user@gmail.com"
+            "example": "user@example.com"
           },
           "gender": {
             "type": "string",
-            "example": "male",
-            "default": null,
-            "enum": ["male", "female"]
+            "example": "female",
+            "default": "female",
+            "enum": [
+              "male",
+              "female"
+            ]
           },
           "avatarURL": {
             "type": "string",
-            "example": null
+            "example": "http://res.cloudinary.com/doj55bihz/image/upload/v1703335266/user_avatars/fwkykl5kcqmcoc5p3qkn.jpg",
+            "default": null
           },
           "waterRate": {
             "type": "integer",
-            "example": 0
-          },
-          "dailyNorma": {
-            "type": "integer",
-            "example": 1500
+            "example": 1500,
+            "default": 2000
           }
         }
       },
       "RegistrationLoginRequest": {
-        "required": ["email", "password"],
+        "required": [
+          "email",
+          "password"
+        ],
         "type": "object",
         "properties": {
           "email": {
             "type": "string",
-            "example": "user@gmail.com"
+            "example": "user@example.com"
           },
           "password": {
             "type": "string",
@@ -367,7 +409,10 @@
         }
       },
       "UserWithToken": {
-        "required": ["user", "token"],
+        "required": [
+          "user",
+          "token"
+        ],
         "type": "object",
         "properties": {
           "token": {
@@ -380,7 +425,9 @@
         }
       },
       "AvatarUpload": {
-        "required": ["avatar"],
+        "required": [
+          "avatar"
+        ],
         "type": "object",
         "properties": {
           "avatar": {
@@ -390,12 +437,55 @@
         }
       },
       "AvatarResponse": {
-        "required": ["avatarURL"],
+        "required": [
+          "avatarURL"
+        ],
         "type": "object",
         "properties": {
           "avatarURL": {
             "type": "string",
-            "example": "http://res.cloudinary.com/doj55bihz/image/upload/v1703335266/user_avatars/fwkykl5kcqmcoc5p3qkn.jpg"
+            "example": "http://res.cloudinary.com/doj55bihz/image/upload/v1703335266/user_avatars/fwkykl5kcqmcoc5p3qkn.jpg",
+            "default": null
+          }
+        }
+      },
+      "UserCurrentSchema": {
+        "required": [
+          "name",
+          "email",
+          "gender",
+          "avatarURL",
+          "waterRate"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "User",
+            "default": ""
+          },
+          "email": {
+            "type": "string",
+            "example": "user@example.com"
+          },
+          "gender": {
+            "type": "string",
+            "example": "female",
+            "default": "female",
+            "enum": [
+              "male",
+              "female"
+            ]
+          },
+          "avatarURL": {
+            "type": "string",
+            "example": "http://res.cloudinary.com/doj55bihz/image/upload/v1703335266/user_avatars/fwkykl5kcqmcoc5p3qkn.jpg",
+            "default": null
+          },
+          "waterRate": {
+            "type": "integer",
+            "example": 1500,
+            "default": 2000
           }
         }
       },
@@ -404,7 +494,44 @@
         "properties": {
           "email": {
             "type": "string",
-            "example": "user@gmail.com"
+            "example": "user@example.com"
+          },
+          "name": {
+            "type": "string",
+            "example": "User",
+            "default": ""
+          },
+          "gender": {
+            "type": "string",
+            "example": "female",
+            "default": "female",
+            "enum": [
+              "male",
+              "female"
+            ]
+          },
+          "outdatedPassword": {
+            "type": "string",
+            "example": "qwerty123"
+          },
+          "newPassword": {
+            "type": "string",
+            "example": "qwerty1234"
+          }
+        }
+      },
+      "EditedUserInformation": {
+        "required": [
+          "email",
+          "name",
+          "gender",
+          "avatarURL"
+        ],
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "user@example.com"
           },
           "name": {
             "type": "string",
@@ -412,36 +539,12 @@
           },
           "gender": {
             "type": "string",
-            "example": "male",
-            "enum": ["male", "female"]
-          },
-          "password": {
-            "type": "string",
-            "example": "qwerty123"
-          }
-        }
-      },
-      "EditedUserInformation": {
-        "required": ["email", "name", "gender", "avatarURL"],
-        "type": "object",
-        "properties": {
-          "email": {
-            "type": "string",
-            "example": "user@gmail.com"
-          },
-          "name": {
-            "type": "string",
-            "example": "user"
-          },
-          "gender": {
-            "type": "string",
-            "example": "male",
-            "default": null,
-            "enum": ["male", "female"]
-          },
-          "avatarURL": {
-            "type": "string",
-            "example": "http://res.cloudinary.com/doj55bihz/image/upload/v1703335266/user_avatars/fwkykl5kcqmcoc5p3qkn.jpg"
+            "example": "female",
+            "default": "female",
+            "enum": [
+              "male",
+              "female"
+            ]
           }
         }
       },
