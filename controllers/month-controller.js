@@ -7,9 +7,16 @@ import { HttpError } from "../helpers/index.js";
 
 const getMonthlyStatistic = async (req, res) => {
   const { _id: owner } = req.user;
-  const { date } = req.body;
+  const { startDate, endDate } = req.body; // - для періоду
+  // const { year, month } = req.body; - для конкретного місяця
   const { waterRate } = await User.findById(owner);
-  // console.log(waterRate);
+
+  // const startDate = new Date(year, month - 1, 1); - для конкретного місяця
+  // const endDate = new Date(year, month, 0); - для конкретного місяця
+
+  if (!waterRate) {
+    throw HttpError(500, "Internal Server Error");
+  }
 
   const result = await WaterValue.aggregate([
     {
@@ -18,8 +25,10 @@ const getMonthlyStatistic = async (req, res) => {
           { owner: owner },
           {
             date: {
-              $gte: new Date(date),
-              $lte: new Date(new Date(date).getTime() + 24 * 60 * 60 * 1000),
+              $gte: new Date(startDate),
+              // $gte: startDate, - для конкретного місяця
+              $lte: new Date(new Date(endDate).getTime() + 24 * 60 * 60 * 1000),
+              // $lte: endDate, - для конкретного місяця
             },
           },
         ],
@@ -27,20 +36,33 @@ const getMonthlyStatistic = async (req, res) => {
     },
     {
       $group: {
-        _id: null,
-        waterVolumesSum: { $sum: 1 },
-        waterVolumesNumber: { $sum: "$waterVolume" },
-        waterVolumes: { $push: "$$ROOT" },
+        _id: { $dateToString: { format: "%Y-%m-%d", date: "$date" } },
+        waterVolumeSum: { $sum: "$waterVolume" },
+        drinkCount: { $sum: 1 },
       },
     },
     {
-      $addFields: {
-        percentage: {
-          $multiply: [{ $divide: ["$waterVolumesNumber", waterRate] }, 100],
+      $project: {
+        date: "$_id",
+        _id: 0,
+        waterVolumeSum: 1,
+        drinkCount: 1,
+        waterVolumePercentage: {
+          $min: [
+            { $multiply: [{ $divide: ["$waterVolumeSum", waterRate] }, 100] },
+            100,
+          ],
         },
       },
     },
   ]);
+
+  if (result.length === 0) {
+    throw HttpError(
+      404,
+      `Data for this period: ${startDate} - ${endDate} not found`
+    );
+  }
 
   res.json(result);
 };
