@@ -25,6 +25,12 @@ const register = async (req, res) => {
     verificationToken,
   });
 
+  const payload = {
+    id: newUser._id,
+  };
+  const token = jwt.sign(payload, JWT_SECRET, { expiresIn: "23h" });
+  await User.findByIdAndUpdate(newUser._id, { token });
+
   // const verifyEmail = {
   //   to: email,
   //   subject: "Verify email",
@@ -34,11 +40,14 @@ const register = async (req, res) => {
   // await sendEmail(verifyEmail);
 
   res.status(201).json({
-    email: newUser.email,
-    name: newUser.name,
-    gender: newUser.gender,
-    avatarURL: newUser.avatarURL,
-    waterRate: newUser.waterRate,
+    token,
+    user: {
+      email: newUser.email,
+      name: newUser.name,
+      gender: newUser.gender,
+      avatarURL: newUser.avatarURL,
+      waterRate: newUser.waterRate,
+    },
   });
 };
 
