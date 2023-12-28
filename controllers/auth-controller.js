@@ -39,16 +39,16 @@ const register = async (req, res) => {
 
   // await sendEmail(verifyEmail);
 
-  res
-    .status(201)
-    .json({
-      token,
+  res.status(201).json({
+    token,
+    user: {
       email: newUser.email,
       name: newUser.name,
       gender: newUser.gender,
       avatarURL: newUser.avatarURL,
       waterRate: newUser.waterRate,
-    });
+    },
+  });
 };
 
 // const verify = async (req, res) => {
