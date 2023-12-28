@@ -12,7 +12,7 @@ const todayRouter = express.Router();
 
 todayRouter.use(authenticate);
 
-todayRouter.get(
+todayRouter.post(
   "/",
   validateBody(todayDateSchema),
   todayControllers.getDayliStatistic
