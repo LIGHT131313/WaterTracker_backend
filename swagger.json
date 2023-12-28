@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "version": "1.0.1",
+    "version": "1.0.2",
     "title": "WaterTracker Backend",
     "description": "API documentation for project WaterTracker",
     "license": {
@@ -69,7 +69,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UserSchema"
+                  "$ref": "#/components/schemas/RegistrationLoginResponse"
                 }
               }
             }
@@ -90,6 +90,9 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/errorConflictResponse"
+                },
+                "example": {
+                  "message": "User with email - user@example.com, already exist"
                 }
               }
             }
@@ -118,11 +121,11 @@
         },
         "responses": {
           "200": {
-            "description": "Created session for existing user\n\n**token** - string\n\n**email** - string\n\n**gender** - string\n\n**avatarURL** - string\n\n**waterRate** - integer",
+            "description": "User login successfully\n\n**token** - string\n\n**email** - string\n\n**gender** - string\n\n**avatarURL** - string\n\n**waterRate** - integer",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UserWithToken"
+                  "$ref": "#/components/schemas/RegistrationLoginResponse"
                 }
               }
             }
@@ -164,7 +167,7 @@
         "parameters": [],
         "responses": {
           "204": {
-            "description": "User logout"
+            "description": "User logout successfully"
           },
           "401": {
             "description": "Bearer auth failed",
@@ -192,7 +195,7 @@
         "tags": [
           "User"
         ],
-        "summary": "Adding/changing a user's avatar",
+        "summary": "Add/change user avatar",
         "operationId": "userController.avatar",
         "parameters": [],
         "requestBody": {
@@ -200,7 +203,7 @@
           "content": {
             "multipart/form-data": {
               "schema": {
-                "$ref": "#/components/schemas/AvatarUpload"
+                "$ref": "#/components/schemas/AvatarRequest"
               }
             }
           }
@@ -263,11 +266,11 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": "Logged user returned\n\n**name** - string\n\n**email** - string\n\n**gender** - string\n\n**avatarURL** - string\n\n**waterRate** - integer\n",
+            "description": "Getting current user information successfully\n\n**name** - string\n\n**email** - string\n\n**gender** - string\n\n**avatarURL** - string\n\n**waterRate** - integer\n",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UserCurrentSchema"
+                  "$ref": "#/components/schemas/UserCurrentResponse"
                 }
               }
             }
@@ -298,7 +301,7 @@
         "tags": [
           "User"
         ],
-        "summary": "Edit user information",
+        "summary": "Change user information",
         "operationId": "userController.updateUserInfo",
         "parameters": [],
         "requestBody": {
@@ -306,7 +309,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/EditUserInformation"
+                "$ref": "#/components/schemas/EditUserRequest"
               }
             }
           },
@@ -318,7 +321,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EditedUserInformation"
+                  "$ref": "#/components/schemas/EditUserResponse"
                 }
               }
             }
@@ -353,44 +356,378 @@
           }
         ]
       }
+    },
+    "/waterrate": {
+      "post": {
+        "tags": [
+          "Waterrate"
+        ],
+        "summary": "Change user waterrate",
+        "operationId": "waterRateController.updateWaterRate",
+        "parameters": [],
+        "requestBody": {
+          "description": "**waterRate** - integer, *required*\n",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WaterRateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "WaterRate updated succesfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WaterRateResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error or Empty body",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorBadRequesResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Bearer auth failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_401"
+                },
+                "example": {
+                  "message": "Not authorized"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/water": {
+      "post": {
+        "tags": [
+          "Water"
+        ],
+        "summary": "Add water value",
+        "operationId": "waterController.addWaterValue",
+        "parameters": [],
+        "requestBody": {
+          "description": "**waterVolume** - integer, *required*\n\n**date** - string, *required*\n",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WaterAddRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Water volume added succesfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WaterAddResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error or Empty body",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorBadRequesResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Bearer auth failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_401"
+                },
+                "example": {
+                  "message": "Not authorized"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Water Volume in use",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorConflictResponse"
+                },
+                "example": {
+                  "message": "WaterVolume with this date 2023-11-15T14:20Z already exists in DB"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/water/{id}": {
+      "patch": {
+        "tags": [
+          "Water"
+        ],
+        "summary": "Update water value",
+        "operationId": "waterController.updateWaterValueByID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of water value to use"
+          }
+        ],
+        "requestBody": {
+          "description": "Сan use one parameter\n\n**waterVolume** - integer\n\n**date** - string\n",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WaterAddRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Water volume changed succesfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WaterAddResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error or Empty body",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorBadRequesResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Bearer auth failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_401"
+                },
+                "example": {
+                  "message": "Not authorized"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Water Volume in use",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorConflictResponse"
+                },
+                "example": {
+                  "message": "WaterVolume with this date 2023-11-15T14:20Z already exists in DB"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Water"
+        ],
+        "summary": "Delete water value",
+        "operationId": "waterController.deleteteWaterValueByID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of water value to use"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Water volume deleted succesfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WaterVolumeDeleteResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error or Empty body",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorBadRequesResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Bearer auth failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_401"
+                },
+                "example": {
+                  "message": "Not authorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Water Volume not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorNotFoundResponse"
+                },
+                "example": {
+                  "message": "Water Volume with id=658d7a999b99d9b51ae2097d not found"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/today": {
+      "post": {
+        "tags": [
+          "Today"
+        ],
+        "summary": "Get today water values",
+        "operationId": "todayControllers.getDayliStatistic",
+        "parameters": [],
+        "requestBody": {
+          "description": "**date** - string,  *required*.\n",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TodayRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Getting today water values successfully\n\n**_id** - null\n\n**waterVolumeSum** - integer\n\n**waterVolumes** - array\n\n**waterVolumePercentage** - integer            \n",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TodayResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error or Empty body",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorBadRequesResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Bearer auth failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_401"
+                },
+                "example": {
+                  "message": "Not authorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No water values for this date",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorNotFoundResponse"
+                },
+                "example": {
+                  "message": "Data for this Date: 2023-11-14 not found"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
     }
   },
   "components": {
     "schemas": {
-      "UserSchema": {
-        "required": [
-          "email",
-          "gender",
-          "avatarURL",
-          "waterRate"
-        ],
-        "type": "object",
-        "properties": {
-          "email": {
-            "type": "string",
-            "example": "user@example.com"
-          },
-          "gender": {
-            "type": "string",
-            "example": "female",
-            "default": "female",
-            "enum": [
-              "male",
-              "female"
-            ]
-          },
-          "avatarURL": {
-            "type": "string",
-            "example": "http://res.cloudinary.com/doj55bihz/image/upload/v1703335266/user_avatars/fwkykl5kcqmcoc5p3qkn.jpg",
-            "default": null
-          },
-          "waterRate": {
-            "type": "integer",
-            "example": 1500,
-            "default": 2000
-          }
-        }
-      },
       "RegistrationLoginRequest": {
         "required": [
           "email",
@@ -404,11 +741,13 @@
           },
           "password": {
             "type": "string",
-            "example": "qwerty123"
+            "example": "qwerty123",
+            "minimum": 8,
+            "maximum": 64
           }
         }
       },
-      "UserWithToken": {
+      "RegistrationLoginResponse": {
         "required": [
           "user",
           "token"
@@ -420,11 +759,44 @@
             "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ODZjOWRjMTlmOTcxMjY5OTMzODQ5MCIsImlhdCI6MTcwMzMzMzE4MiwiZXhwIjoxNzAzNDE1OTgyfQ._o8tF4gIcZpycR5jiu9s5-CQ4EhkwzMomatg6sA-4do"
           },
           "user": {
-            "$ref": "#/components/schemas/UserSchema"
+            "required": [
+              "email",
+              "gender",
+              "avatarURL",
+              "waterRate"
+            ],
+            "type": "object",
+            "properties": {
+              "email": {
+                "type": "string",
+                "example": "user@example.com"
+              },
+              "gender": {
+                "type": "string",
+                "example": "female",
+                "default": "female",
+                "enum": [
+                  "male",
+                  "female"
+                ]
+              },
+              "avatarURL": {
+                "type": "string",
+                "example": "http://res.cloudinary.com/doj55bihz/image/upload/v1703335266/user_avatars/fwkykl5kcqmcoc5p3qkn.jpg",
+                "default": null
+              },
+              "waterRate": {
+                "type": "integer",
+                "example": 1500,
+                "default": 2000,
+                "minimum": 0,
+                "maximum": 15000
+              }
+            }
           }
         }
       },
-      "AvatarUpload": {
+      "AvatarRequest": {
         "required": [
           "avatar"
         ],
@@ -449,7 +821,7 @@
           }
         }
       },
-      "UserCurrentSchema": {
+      "UserCurrentResponse": {
         "required": [
           "name",
           "email",
@@ -462,7 +834,8 @@
           "name": {
             "type": "string",
             "example": "User",
-            "default": ""
+            "default": "",
+            "maximum": 32
           },
           "email": {
             "type": "string",
@@ -485,11 +858,16 @@
           "waterRate": {
             "type": "integer",
             "example": 1500,
-            "default": 2000
+            "default": 2000,
+            "minimum": 0,
+            "maximum": 15000
           }
         }
       },
-      "EditUserInformation": {
+      "EditUserRequest": {
+        "required": [
+          "outdatedPassword"
+        ],
         "type": "object",
         "properties": {
           "email": {
@@ -499,7 +877,8 @@
           "name": {
             "type": "string",
             "example": "User",
-            "default": ""
+            "default": "",
+            "maximum": 32
           },
           "gender": {
             "type": "string",
@@ -512,20 +891,23 @@
           },
           "outdatedPassword": {
             "type": "string",
-            "example": "qwerty123"
+            "example": "qwerty123",
+            "minimum": 8,
+            "maximum": 64
           },
           "newPassword": {
             "type": "string",
-            "example": "qwerty1234"
+            "example": "qwerty1234",
+            "minimum": 8,
+            "maximum": 64
           }
         }
       },
-      "EditedUserInformation": {
+      "EditUserResponse": {
         "required": [
           "email",
           "name",
-          "gender",
-          "avatarURL"
+          "gender"
         ],
         "type": "object",
         "properties": {
@@ -535,7 +917,8 @@
           },
           "name": {
             "type": "string",
-            "example": "User"
+            "example": "User",
+            "maximum": 32
           },
           "gender": {
             "type": "string",
@@ -548,18 +931,144 @@
           }
         }
       },
+      "WaterRateRequest": {
+        "required": [
+          "waterRate"
+        ],
+        "type": "object",
+        "properties": {
+          "waterRate": {
+            "type": "integer",
+            "example": 3000,
+            "default": 2000,
+            "minimum": 0,
+            "maximum": 15000
+          }
+        }
+      },
+      "WaterRateResponse": {
+        "required": [
+          "message"
+        ],
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "WaterRate updated succesfully"
+          }
+        }
+      },
+      "WaterAddRequest": {
+        "required": [
+          "waterVolume",
+          "date"
+        ],
+        "type": "object",
+        "properties": {
+          "waterVolume": {
+            "type": "integer",
+            "example": 300,
+            "minimum": 0,
+            "maximum": 5000
+          },
+          "date": {
+            "type": "string",
+            "example": "2023-11-15T14:20Z"
+          }
+        }
+      },
+      "WaterAddResponse": {
+        "required": [
+          "waterVolume",
+          "date"
+        ],
+        "type": "object",
+        "properties": {
+          "waterVolume": {
+            "type": "integer",
+            "example": 300,
+            "minimum": 0,
+            "maximum": 5000
+          },
+          "date": {
+            "type": "string",
+            "example": "2023-11-15T14:20:00.000Z"
+          },
+          "owner": {
+            "type": "string",
+            "example": "658d62da31fc76aa332c7d85"
+          },
+          "_id": {
+            "type": "string",
+            "example": "658d6e74ca8f4105720b28f9"
+          }
+        }
+      },
+      "WaterVolumeDeleteResponse": {
+        "required": [
+          "message"
+        ],
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Water Volume deleted"
+          }
+        }
+      },
+      "TodayRequest": {
+        "required": [
+          "date"
+        ],
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "example": "2023-11-15"
+          }
+        }
+      },
+      "TodayResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "_id",
+            "waterVolumeSum",
+            "waterVolumes",
+            "waterVolumePercentage"
+          ],
+          "properties": {
+            "_id": {
+              "type": "string",
+              "default": null
+            },
+            "waterVolumeSum": {
+              "type": "integer",
+              "example": 300,
+              "default": 0
+            },
+            "waterVolumes": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/WaterAddResponse"
+              }
+            },
+            "waterVolumePercentage": {
+              "type": "integer",
+              "example": 53.33333,
+              "default": 0
+            }
+          }
+        }
+      },
       "errorBadRequesResponse": {
         "type": "object",
         "properties": {
-          "status": {
-            "type": "integer",
-            "description": "Error status code",
-            "example": 400
-          },
           "message": {
             "type": "string",
             "description": "Error message",
-            "example": "Bad request"
+            "example": "Body must have fields"
           }
         }
       },
@@ -573,8 +1082,7 @@
           },
           "message": {
             "type": "string",
-            "description": "Error message",
-            "example": "User with email - user@example.com, already exist"
+            "description": "Error message"
           }
         }
       },
@@ -596,15 +1104,9 @@
       "errorNotFoundResponse": {
         "type": "object",
         "properties": {
-          "status": {
-            "type": "integer",
-            "description": "Error status code",
-            "example": 404
-          },
           "message": {
             "type": "string",
-            "description": "Error message",
-            "example": "Not found"
+            "description": "Error message"
           }
         }
       },
