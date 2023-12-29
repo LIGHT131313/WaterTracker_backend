@@ -6,7 +6,7 @@ import { todayDateSchema } from "../utils/validation/dateValidationSchemas.js";
 
 import { validateBody } from "../decorators/index.js";
 
-import { authenticate } from "../middlewares/index.js";
+import { isEmptyBody, authenticate } from "../middlewares/index.js";
 
 const todayRouter = express.Router();
 
@@ -14,6 +14,7 @@ todayRouter.use(authenticate);
 
 todayRouter.post(
   "/",
+  isEmptyBody,
   validateBody(todayDateSchema),
   todayControllers.getDayliStatistic
 );
