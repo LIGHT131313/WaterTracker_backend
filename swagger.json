@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "version": "1.0.2",
+    "version": "1.0.3",
     "title": "WaterTracker Backend",
     "description": "API documentation for project WaterTracker",
     "license": {
@@ -46,9 +46,7 @@
   "paths": {
     "/auth/register": {
       "post": {
-        "tags": [
-          "Auth"
-        ],
+        "tags": ["Auth"],
         "summary": "Registration user",
         "operationId": "authController.register",
         "parameters": [],
@@ -102,9 +100,7 @@
     },
     "/auth/login": {
       "post": {
-        "tags": [
-          "Auth"
-        ],
+        "tags": ["Auth"],
         "summary": "Login user",
         "operationId": "authController.login",
         "parameters": [],
@@ -158,9 +154,7 @@
     },
     "/auth/logout": {
       "post": {
-        "tags": [
-          "Auth"
-        ],
+        "tags": ["Auth"],
         "summary": "Logout user",
         "description": "",
         "operationId": "authController.logout",
@@ -192,9 +186,7 @@
     },
     "/user/avatar": {
       "post": {
-        "tags": [
-          "User"
-        ],
+        "tags": ["User"],
         "summary": "Add/change user avatar",
         "operationId": "userController.avatar",
         "parameters": [],
@@ -258,9 +250,7 @@
     },
     "/user/current": {
       "get": {
-        "tags": [
-          "User"
-        ],
+        "tags": ["User"],
         "summary": "Get current user information",
         "operationId": "userController.getCurrent",
         "parameters": [],
@@ -298,9 +288,7 @@
     },
     "/user/edit": {
       "patch": {
-        "tags": [
-          "User"
-        ],
+        "tags": ["User"],
         "summary": "Change user information",
         "operationId": "userController.updateUserInfo",
         "parameters": [],
@@ -359,9 +347,7 @@
     },
     "/waterrate": {
       "post": {
-        "tags": [
-          "Waterrate"
-        ],
+        "tags": ["Waterrate"],
         "summary": "Change user waterrate",
         "operationId": "waterRateController.updateWaterRate",
         "parameters": [],
@@ -420,9 +406,7 @@
     },
     "/water": {
       "post": {
-        "tags": [
-          "Water"
-        ],
+        "tags": ["Water"],
         "summary": "Add water value",
         "operationId": "waterController.addWaterValue",
         "parameters": [],
@@ -494,9 +478,7 @@
     },
     "/water/{id}": {
       "patch": {
-        "tags": [
-          "Water"
-        ],
+        "tags": ["Water"],
         "summary": "Update water value",
         "operationId": "waterController.updateWaterValueByID",
         "parameters": [
@@ -578,9 +560,7 @@
         ]
       },
       "delete": {
-        "tags": [
-          "Water"
-        ],
+        "tags": ["Water"],
         "summary": "Delete water value",
         "operationId": "waterController.deleteteWaterValueByID",
         "parameters": [
@@ -653,9 +633,7 @@
     },
     "/today": {
       "post": {
-        "tags": [
-          "Today"
-        ],
+        "tags": ["Today"],
         "summary": "Get today water values",
         "operationId": "todayControllers.getDayliStatistic",
         "parameters": [],
@@ -672,7 +650,7 @@
         },
         "responses": {
           "200": {
-            "description": "Getting today water values successfully\n\n**_id** - null\n\n**waterVolumeSum** - integer\n\n**waterVolumes** - array\n\n**waterVolumePercentage** - integer            \n",
+            "description": "Getting today water values successfully\n\n**_id** - null\n\n**waterVolumeSum** - integer\n\n**waterVolume** - integer\n  \n**date** - string\n\n**owner** - string\n\n**_id** - string\n\n**waterVolumePercentage** - integer            \n",
             "content": {
               "application/json": {
                 "schema": {
@@ -724,15 +702,84 @@
           }
         ]
       }
+    },
+    "/month": {
+      "post": {
+        "tags": ["Month"],
+        "summary": "Get period water values",
+        "operationId": "monthlyControllers.getMonthlyStatistic",
+        "parameters": [],
+        "requestBody": {
+          "description": "**startDate** - string,  *required*.\n\n**endDate** - string,  *required*.\n",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MonthRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Getting period water values successfully\n\n**waterVolumeSum** - integer\n\n**drinkCount** - integer\n\n**date** - string\n\n**waterVolumePercentage** - integer            \n",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MonthResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error or Empty body",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorBadRequesResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Bearer auth failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_401"
+                },
+                "example": {
+                  "message": "Not authorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No water values for this period",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorNotFoundResponse"
+                },
+                "example": {
+                  "message": "Data for this period: 2023-10-10 - 2023-10-30 not found"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
     }
   },
   "components": {
     "schemas": {
       "RegistrationLoginRequest": {
-        "required": [
-          "email",
-          "password"
-        ],
+        "required": ["email", "password"],
         "type": "object",
         "properties": {
           "email": {
@@ -748,10 +795,7 @@
         }
       },
       "RegistrationLoginResponse": {
-        "required": [
-          "user",
-          "token"
-        ],
+        "required": ["user", "token"],
         "type": "object",
         "properties": {
           "token": {
@@ -759,12 +803,7 @@
             "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ODZjOWRjMTlmOTcxMjY5OTMzODQ5MCIsImlhdCI6MTcwMzMzMzE4MiwiZXhwIjoxNzAzNDE1OTgyfQ._o8tF4gIcZpycR5jiu9s5-CQ4EhkwzMomatg6sA-4do"
           },
           "user": {
-            "required": [
-              "email",
-              "gender",
-              "avatarURL",
-              "waterRate"
-            ],
+            "required": ["email", "gender", "avatarURL", "waterRate"],
             "type": "object",
             "properties": {
               "email": {
@@ -775,10 +814,7 @@
                 "type": "string",
                 "example": "female",
                 "default": "female",
-                "enum": [
-                  "male",
-                  "female"
-                ]
+                "enum": ["male", "female"]
               },
               "avatarURL": {
                 "type": "string",
@@ -797,9 +833,7 @@
         }
       },
       "AvatarRequest": {
-        "required": [
-          "avatar"
-        ],
+        "required": ["avatar"],
         "type": "object",
         "properties": {
           "avatar": {
@@ -809,9 +843,7 @@
         }
       },
       "AvatarResponse": {
-        "required": [
-          "avatarURL"
-        ],
+        "required": ["avatarURL"],
         "type": "object",
         "properties": {
           "avatarURL": {
@@ -822,13 +854,7 @@
         }
       },
       "UserCurrentResponse": {
-        "required": [
-          "name",
-          "email",
-          "gender",
-          "avatarURL",
-          "waterRate"
-        ],
+        "required": ["name", "email", "gender", "avatarURL", "waterRate"],
         "type": "object",
         "properties": {
           "name": {
@@ -845,10 +871,7 @@
             "type": "string",
             "example": "female",
             "default": "female",
-            "enum": [
-              "male",
-              "female"
-            ]
+            "enum": ["male", "female"]
           },
           "avatarURL": {
             "type": "string",
@@ -865,9 +888,7 @@
         }
       },
       "EditUserRequest": {
-        "required": [
-          "outdatedPassword"
-        ],
+        "required": ["outdatedPassword"],
         "type": "object",
         "properties": {
           "email": {
@@ -884,10 +905,7 @@
             "type": "string",
             "example": "female",
             "default": "female",
-            "enum": [
-              "male",
-              "female"
-            ]
+            "enum": ["male", "female"]
           },
           "outdatedPassword": {
             "type": "string",
@@ -904,11 +922,7 @@
         }
       },
       "EditUserResponse": {
-        "required": [
-          "email",
-          "name",
-          "gender"
-        ],
+        "required": ["email", "name", "gender"],
         "type": "object",
         "properties": {
           "email": {
@@ -924,17 +938,12 @@
             "type": "string",
             "example": "female",
             "default": "female",
-            "enum": [
-              "male",
-              "female"
-            ]
+            "enum": ["male", "female"]
           }
         }
       },
       "WaterRateRequest": {
-        "required": [
-          "waterRate"
-        ],
+        "required": ["waterRate"],
         "type": "object",
         "properties": {
           "waterRate": {
@@ -947,9 +956,7 @@
         }
       },
       "WaterRateResponse": {
-        "required": [
-          "message"
-        ],
+        "required": ["message"],
         "type": "object",
         "properties": {
           "message": {
@@ -959,10 +966,7 @@
         }
       },
       "WaterAddRequest": {
-        "required": [
-          "waterVolume",
-          "date"
-        ],
+        "required": ["waterVolume", "date"],
         "type": "object",
         "properties": {
           "waterVolume": {
@@ -978,10 +982,7 @@
         }
       },
       "WaterAddResponse": {
-        "required": [
-          "waterVolume",
-          "date"
-        ],
+        "required": ["waterVolume", "date"],
         "type": "object",
         "properties": {
           "waterVolume": {
@@ -1005,9 +1006,7 @@
         }
       },
       "WaterVolumeDeleteResponse": {
-        "required": [
-          "message"
-        ],
+        "required": ["message"],
         "type": "object",
         "properties": {
           "message": {
@@ -1017,9 +1016,7 @@
         }
       },
       "TodayRequest": {
-        "required": [
-          "date"
-        ],
+        "required": ["date"],
         "type": "object",
         "properties": {
           "date": {
@@ -1057,6 +1054,53 @@
             "waterVolumePercentage": {
               "type": "integer",
               "example": 53.33333,
+              "default": 0
+            }
+          }
+        }
+      },
+      "MonthRequest": {
+        "required": ["startDate", "endDate"],
+        "type": "object",
+        "properties": {
+          "startDate": {
+            "type": "string",
+            "example": "2023-11-10"
+          },
+          "endDate": {
+            "type": "string",
+            "example": "2023-11-30"
+          }
+        }
+      },
+      "MonthResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "waterVolumeSum",
+            "drinkCount",
+            "date",
+            "waterVolumePercentage"
+          ],
+          "properties": {
+            "waterVolumeSum": {
+              "type": "integer",
+              "example": 300,
+              "default": 0
+            },
+            "drinkCount": {
+              "type": "integer",
+              "example": 1,
+              "default": 0
+            },
+            "date": {
+              "type": "string",
+              "example": "2023-11-15T00:00:00.000Z"
+            },
+            "waterVolumePercentage": {
+              "type": "integer",
+              "example": 15,
               "default": 0
             }
           }
