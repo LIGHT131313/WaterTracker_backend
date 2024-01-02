@@ -47,16 +47,6 @@ const updateWaterValueByID = async (req, res) => {
     }
   }
 
-  if (waterVolume && waterVolume !== existingRecord.waterVolume) {
-    const newWaterVolume = await WaterValue.findOne({ waterVolume, owner });
-    if (newWaterVolume) {
-      throw HttpError(
-        409,
-        `WaterVolume with this Volume ${waterVolume} already exists in DB`
-      );
-    }
-  }
-
   const result = await WaterValue.findOneAndUpdate(
     { _id: id, owner },
     { waterVolume, date },
