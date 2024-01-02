@@ -153,6 +153,8 @@ const requestPasswordReset = async (req, res) => {
     throw HttpError(404, "User not found");
   }
 
+  const userName = updatedUser.name ? updatedUser.name : "user";
+
   const resetLink = `${BASE_URL}/auth/reset-pass?token=${resetToken}`;
 
   await sendEmail({
@@ -171,7 +173,7 @@ const requestPasswordReset = async (req, res) => {
         </div>
         <p style="color: #333333; font-size: 16px; line-height: 1.5;">This link is valid for the next hour.</p>
         <p style="color: #333333; font-size: 16px; line-height: 1.5;">If you are having trouble clicking the link, please copy and paste it into your web browser's address bar.</p>
-        <p style="color: #333333; font-size: 16px; margin-top: 30px;">Thank you, user</p>
+        <p style="color: #333333; font-size: 16px; margin-top: 30px;">Thank you, ${userName}</p>
         <div style="text-align: center;">
           <img src="https://yanlozovskyi.github.io/water-tracker/assets/Logo-890d13ba.png" alt="Logo" style="max-width: 100px; margin: 0 auto;">
         </div>
