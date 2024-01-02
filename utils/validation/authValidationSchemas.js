@@ -28,9 +28,4 @@ export const userResetPasswordSchema = Joi.object({
     "string.empty": `New password is required.`,
     "any.required": `New password is required.`,
   }),
-  // confirmPassword: Joi.any()
-  //   .equal(Joi.ref("newPassword"))
-  //   .required()
-  //   .label("Confirm password")
-  //   .messages({ "any.only": "Passwords do not match" }),
 });
