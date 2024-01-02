@@ -160,6 +160,9 @@ const requestPasswordReset = async (req, res) => {
     subject: "Password Reset",
     html: ` <div style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; margin: 0; padding: 20px; background-color: #f4f7fa;">
       <div style="max-width: 600px; margin: 20px auto; padding: 20px; background-color: #ffffff; border-radius: 8px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+       <div style="text-align: center;">
+          <img src="https://yanlozovskyi.github.io/water-tracker/assets/Logo-890d13ba.png" alt="Logo" style="max-width: 100px; margin: 0 auto;">
+        </div>
         <h2 style="color: #0056b3; font-size: 24px; margin-bottom: 20px;">Password Reset Request</h2>
         <p style="color: #333333; font-size: 16px; line-height: 1.5;">Hello,</p>
         <p style="color: #333333; font-size: 16px; line-height: 1.5;">You are receiving this email because we received a password reset request for your account. If you did not request a password reset, please ignore this email.</p>
@@ -168,7 +171,10 @@ const requestPasswordReset = async (req, res) => {
         </div>
         <p style="color: #333333; font-size: 16px; line-height: 1.5;">This link is valid for the next hour.</p>
         <p style="color: #333333; font-size: 16px; line-height: 1.5;">If you are having trouble clicking the link, please copy and paste it into your web browser's address bar.</p>
-        <p style="color: #0056b3; font-size: 16px; margin-top: 30px;">Thank you,<br>[Water-Rate-App]</p>
+        <p style="color: #333333; font-size: 16px; margin-top: 30px;">Thank you, user</p>
+        <div style="text-align: center;">
+          <img src="https://yanlozovskyi.github.io/water-tracker/assets/Logo-890d13ba.png" alt="Logo" style="max-width: 100px; margin: 0 auto;">
+        </div>
       </div>
     </div>`,
   });
