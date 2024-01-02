@@ -1,21 +1,21 @@
 import express from "express";
 
-import todayControllers from "../controllers/today-constroller.js";
+import todayControllers from "../controllers/today-controller.js";
 
 import { todayDateSchema } from "../utils/validation/dateValidationSchemas.js";
 
-import { validateBody } from "../decorators/index.js";
+import { validateQuery } from "../decorators/index.js";
 
-import { isEmptyBody, authenticate } from "../middlewares/index.js";
+import { isEmptyQuery, authenticate } from "../middlewares/index.js";
 
 const todayRouter = express.Router();
 
 todayRouter.use(authenticate);
 
-todayRouter.post(
+todayRouter.get(
   "/",
-  isEmptyBody,
-  validateBody(todayDateSchema),
+  isEmptyQuery,
+  validateQuery(todayDateSchema),
   todayControllers.getDayliStatistic
 );
 

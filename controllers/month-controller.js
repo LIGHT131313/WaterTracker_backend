@@ -7,8 +7,8 @@ import { HttpError } from "../helpers/index.js";
 
 const getMonthlyStatistic = async (req, res) => {
   const { _id: owner } = req.user;
-  const { startDate, endDate } = req.body; // - для періоду
-  // const { year, month } = req.body; - для конкретного місяця
+  const { startDate, endDate } = req.query; // - для періоду
+  // const { year, month } = req.query; - для конкретного місяця
   const { waterRate } = await User.findById(owner);
 
   // const startDate = new Date(year, month - 1, 1); - для конкретного місяця
