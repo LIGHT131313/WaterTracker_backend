@@ -9,7 +9,8 @@ import { validateBody } from "../decorators/index.js";
 import {
   userRegisterSchema,
   userLoginSchema,
-  // userEmailSchema,
+  userEmailSchema,
+  userResetPasswordSchema,
 } from "../utils/validation/authValidationSchemas.js";
 
 const authRouter = express.Router();
@@ -40,6 +41,20 @@ authRouter.post(
 // authRouter.get("/current", authenticate, authController.getCurrent);
 
 authRouter.post("/logout", authenticate, authController.logout);
+
+authRouter.post(
+  "/request-pass",
+  isEmptyBody,
+  validateBody(userEmailSchema),
+  authController.requestPasswordReset
+);
+
+authRouter.post(
+  "/reset-pass",
+  isEmptyBody,
+  validateBody(userResetPasswordSchema),
+  authController.resetPassword
+);
 
 // authRouter.patch(
 //   "/subscription",

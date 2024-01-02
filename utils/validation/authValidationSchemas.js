@@ -13,6 +13,24 @@ export const userLoginSchema = Joi.object({
   password: Joi.string().min(8).max(64).required(),
 });
 
-// export const userEmailSchema = Joi.object({
-//   email: Joi.string().pattern(emailRegexp).required(),
-// });
+export const userEmailSchema = Joi.object({
+  email: Joi.string().pattern(emailRegexp).required(),
+});
+
+export const userResetPasswordSchema = Joi.object({
+  token: Joi.string().required().messages({
+    "string.empty": `Token is required.`,
+    "any.required": `Token is required.`,
+  }),
+  newPassword: Joi.string().min(8).max(64).required().messages({
+    "string.min": `Password should have a minimum length of {#limit}.`,
+    "string.max": `Password should have a maximum length of {#limit}.`,
+    "string.empty": `New password is required.`,
+    "any.required": `New password is required.`,
+  }),
+  // confirmPassword: Joi.any()
+  //   .equal(Joi.ref("newPassword"))
+  //   .required()
+  //   .label("Confirm password")
+  //   .messages({ "any.only": "Passwords do not match" }),
+});

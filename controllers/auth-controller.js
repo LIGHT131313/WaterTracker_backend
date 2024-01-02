@@ -135,8 +135,71 @@ const logout = async (req, res) => {
   res.status(204).json();
 };
 
+const requestPasswordReset = async (req, res) => {
+  const { email } = req.body;
+  const resetToken = nanoid();
+  const resetTokenExpire = Date.now() + 3600000;
+
+  const updatedUser = await User.findOneAndUpdate(
+    { email },
+    {
+      resetToken: resetToken,
+      resetTokenExpire: resetTokenExpire,
+    },
+    { new: true }
+  );
+
+  if (!updatedUser) {
+    throw HttpError(404, "User not found");
+  }
+
+  const resetLink = `${BASE_URL}/reset-pass?token=${resetToken}`;
+
+  await sendEmail({
+    to: email,
+    subject: "Password Reset",
+    html: ` <p>Hello,</p>
+    <p>You are receiving this email because we received a password reset request for your account. If you did not request a password reset, please ignore this email.</p>
+    <p>To set a new password, please click on the following link:</p>
+    <p><a href="${resetLink}" target="_blank">Reset Password</a></p>
+    <p>This link is valid for the next hour.</p>
+    <p>If you are having trouble clicking the link, please copy and paste it into your web browser's address bar.</p>
+    <p>Thank you,<br>[Water-Rate-App]</p>`,
+  });
+
+  res
+    .status(200)
+    .json({ message: "Password reset link has been sent to your email" });
+};
+
+const resetPassword = async (req, res) => {
+  const { token, newPassword } = req.body;
+  const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+  const updatedUser = await User.findOneAndUpdate(
+    {
+      resetToken: token,
+      resetTokenExpire: { $gt: Date.now() },
+    },
+    {
+      password: hashedPassword,
+      resetToken: undefined,
+      resetTokenExpire: undefined,
+    },
+    { new: true }
+  );
+
+  if (!updatedUser) {
+    throw HttpError(400, "Invalid or expired token");
+  }
+
+  res.status(200).json({ message: "Password has been reset successfully" });
+};
+
 export default {
   register: ctrlWrapper(register),
   login: ctrlWrapper(login),
   logout: ctrlWrapper(logout),
+  requestPasswordReset: ctrlWrapper(requestPasswordReset),
+  resetPassword: ctrlWrapper(resetPassword),
 };
