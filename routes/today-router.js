@@ -1,6 +1,6 @@
 import express from "express";
 
-import todayControllers from "../controllers/today-constroller.js";
+import todayControllers from "../controllers/today-controller.js";
 
 import { todayDateSchema } from "../utils/validation/dateValidationSchemas.js";
 
