@@ -38,8 +38,12 @@ const updateWaterValueByID = async (req, res) => {
   }
 
   if (date && date !== existingRecord.date) {
-    const newWaterDate = await WaterValue.findOne({ date, owner });
-    if (newWaterDate) {
+    const dateConflict = await WaterValue.findOne({
+      date,
+      owner,
+      _id: { $ne: id },
+    });
+    if (dateConflict) {
       throw HttpError(
         409,
         `WaterVolume with this date ${date} already exists in DB`
@@ -55,6 +59,7 @@ const updateWaterValueByID = async (req, res) => {
 
   res.json(result);
 };
+
 const deleteteWaterValueByID = async (req, res) => {
   const { id } = req.params;
   const { _id: owner } = req.user;

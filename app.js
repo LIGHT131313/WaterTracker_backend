@@ -24,7 +24,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static("public"));
 
-app.use("/auth", authRouter);
+app.use("/api/auth", authRouter);
 app.use("/api/user", userRouter);
 app.use("/api/waterrate", waterRateRouter);
 app.use("/api/water", waterRouter);
