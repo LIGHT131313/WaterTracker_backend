@@ -7,7 +7,7 @@ import { HttpError } from "../helpers/index.js";
 
 const getDayliStatistic = async (req, res) => {
   const { _id: owner } = req.user;
-  const { date } = req.body;
+  const { date } = req.query;
   const { waterRate } = await User.findById(owner);
 
   if (!waterRate) {
