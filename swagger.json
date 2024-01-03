@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "version": "1.0.4",
+    "version": "1.0.5",
     "title": "WaterTracker Backend",
     "description": "API documentation for project WaterTracker",
     "license": {
@@ -149,6 +149,105 @@
                 },
                 "example": {
                   "message": "Email or password is wrong"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/request-pass": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Send password recovery request",
+        "operationId": "authController.requestPasswordReset",
+        "parameters": [],
+        "requestBody": {
+          "description": "**email** - string, *required*\n",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PassRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Password reset link sent successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PassResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error or Empty body",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorBadRequesResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User with this email not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorNotFoundResponse"
+                },
+                "example": {
+                  "message": "User not found"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/reset-pass": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Change password after email request",
+        "operationId": "authController.resetPassword",
+        "parameters": [],
+        "requestBody": {
+          "description": "**resetToken** - string, *required*\n\n**newPassword** - string, *required*          \n",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResetPassRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Password reset successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResetPassResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error or Empty body or Invalid/expired token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorBadRequesResponse"
                 }
               }
             }
@@ -832,6 +931,64 @@
             "example": "qwerty123",
             "minimum": 8,
             "maximum": 64
+          }
+        }
+      },
+      "PassRequest": {
+        "required": [
+          "email"
+        ],
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email",
+            "example": "user@example.com",
+            "pattern": "^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$"
+          }
+        }
+      },
+      "PassResponse": {
+        "required": [
+          "message"
+        ],
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Password reset link has been sent to your email"
+          }
+        }
+      },
+      "ResetPassRequest": {
+        "required": [
+          "resetToken",
+          "newPassword"
+        ],
+        "type": "object",
+        "properties": {
+          "resetToken": {
+            "type": "string",
+            "example": "VwVWRPpuYN-AEZy2NGPwh"
+          },
+          "newPassword": {
+            "type": "string",
+            "example": "qwerty1234",
+            "minimum": 8,
+            "maximum": 64,
+            "format": "password"
+          }
+        }
+      },
+      "ResetPassResponse": {
+        "required": [
+          "message"
+        ],
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Password has been reset successfully"
           }
         }
       },

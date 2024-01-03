@@ -153,9 +153,9 @@ const requestPasswordReset = async (req, res) => {
     throw HttpError(404, "User not found");
   }
 
-  const userName = updatedUser.name ? updatedUser.name : "user";
+  const userName = updatedUser.name ? updatedUser.name : "User";
 
-  const resetLink = `${BASE_URL}/auth/reset-pass?token=${resetToken}`;
+  const resetLink = `${BASE_URL}/auth/reset-pass?resetToken=${resetToken}`;
 
   await sendEmail({
     to: email,
@@ -191,18 +191,18 @@ const requestPasswordReset = async (req, res) => {
 };
 
 const resetPassword = async (req, res) => {
-  const { token, newPassword } = req.body;
+  const { resetToken, newPassword } = req.body;
   const hashedPassword = await bcrypt.hash(newPassword, 10);
 
   const updatedUser = await User.findOneAndUpdate(
     {
-      resetToken: token,
+      resetToken,
       resetTokenExpire: { $gt: Date.now() },
     },
     {
       password: hashedPassword,
-      resetToken: undefined,
-      resetTokenExpire: undefined,
+      resetToken: null,
+      resetTokenExpire: null,
     },
     { new: true }
   );

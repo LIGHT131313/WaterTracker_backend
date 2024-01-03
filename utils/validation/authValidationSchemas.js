@@ -18,7 +18,7 @@ export const userEmailSchema = Joi.object({
 });
 
 export const userResetPasswordSchema = Joi.object({
-  token: Joi.string().required().messages({
+  resetToken: Joi.string().required().messages({
     "string.empty": `Token is required.`,
     "any.required": `Token is required.`,
   }),
