@@ -289,7 +289,7 @@
         ]
       }
     },
-    "/user/avatar": {
+    "/api/user/avatar": {
       "post": {
         "tags": [
           "User"
@@ -355,7 +355,7 @@
         ]
       }
     },
-    "/user/current": {
+    "/api/user/current": {
       "get": {
         "tags": [
           "User"
@@ -395,7 +395,7 @@
         ]
       }
     },
-    "/user/edit": {
+    "/api/user/edit": {
       "patch": {
         "tags": [
           "User"
@@ -456,7 +456,7 @@
         ]
       }
     },
-    "/waterrate": {
+    "/api/waterrate": {
       "post": {
         "tags": [
           "Waterrate"
@@ -517,7 +517,7 @@
         ]
       }
     },
-    "/water": {
+    "/api/water": {
       "post": {
         "tags": [
           "Water"
@@ -591,7 +591,7 @@
         ]
       }
     },
-    "/water/{id}": {
+    "/api/water/{id}": {
       "patch": {
         "tags": [
           "Water"
@@ -750,7 +750,7 @@
         ]
       }
     },
-    "/today": {
+    "/api/today": {
       "get": {
         "tags": [
           "Today"
@@ -825,7 +825,7 @@
         ]
       }
     },
-    "/month": {
+    "/api/month": {
       "get": {
         "tags": [
           "Month"
