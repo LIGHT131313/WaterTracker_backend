@@ -42,14 +42,22 @@ const userSchema = new Schema(
     token: {
       type: String,
     },
+    resetToken: {
+      type: String,
+      default: null,
+    },
+    resetTokenExpire: {
+      type: Date,
+      default: null,
+    },
     // verify: {
     //   type: Boolean,
     //   default: false,
     // },
-    verificationToken: {
-      type: String,
-      required: [true, "Verify token is required"],
-    },
+    // verificationToken: {
+    //   type: String,
+    //   required: [true, "Verify token is required"],
+    // },
   },
   { versionKey: false, timestamps: true }
 );
