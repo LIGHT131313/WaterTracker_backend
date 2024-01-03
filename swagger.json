@@ -44,11 +44,9 @@
     }
   ],
   "paths": {
-    "/auth/register": {
+    "/api/auth/register": {
       "post": {
-        "tags": [
-          "Auth"
-        ],
+        "tags": ["Auth"],
         "summary": "Registration user",
         "operationId": "authController.register",
         "parameters": [],
@@ -100,11 +98,9 @@
         }
       }
     },
-    "/auth/login": {
+    "/api/auth/login": {
       "post": {
-        "tags": [
-          "Auth"
-        ],
+        "tags": ["Auth"],
         "summary": "Login user",
         "operationId": "authController.login",
         "parameters": [],
@@ -156,11 +152,9 @@
         }
       }
     },
-    "/auth/request-pass": {
+    "/api/auth/request-pass": {
       "post": {
-        "tags": [
-          "Auth"
-        ],
+        "tags": ["Auth"],
         "summary": "Send password recovery request",
         "operationId": "authController.requestPasswordReset",
         "parameters": [],
@@ -212,11 +206,9 @@
         }
       }
     },
-    "/auth/reset-pass": {
+    "/api/auth/reset-pass": {
       "post": {
-        "tags": [
-          "Auth"
-        ],
+        "tags": ["Auth"],
         "summary": "Change password after email request",
         "operationId": "authController.resetPassword",
         "parameters": [],
@@ -255,11 +247,9 @@
         }
       }
     },
-    "/auth/logout": {
+    "/api/auth/logout": {
       "post": {
-        "tags": [
-          "Auth"
-        ],
+        "tags": ["Auth"],
         "summary": "Logout user",
         "description": "",
         "operationId": "authController.logout",
@@ -291,9 +281,7 @@
     },
     "/api/user/avatar": {
       "post": {
-        "tags": [
-          "User"
-        ],
+        "tags": ["User"],
         "summary": "Add/change user avatar",
         "operationId": "userController.avatar",
         "parameters": [],
@@ -357,9 +345,7 @@
     },
     "/api/user/current": {
       "get": {
-        "tags": [
-          "User"
-        ],
+        "tags": ["User"],
         "summary": "Get current user information",
         "operationId": "userController.getCurrent",
         "parameters": [],
@@ -397,9 +383,7 @@
     },
     "/api/user/edit": {
       "patch": {
-        "tags": [
-          "User"
-        ],
+        "tags": ["User"],
         "summary": "Change user information",
         "operationId": "userController.updateUserInfo",
         "parameters": [],
@@ -458,9 +442,7 @@
     },
     "/api/waterrate": {
       "post": {
-        "tags": [
-          "Waterrate"
-        ],
+        "tags": ["Waterrate"],
         "summary": "Change user waterrate",
         "operationId": "waterRateController.updateWaterRate",
         "parameters": [],
@@ -519,9 +501,7 @@
     },
     "/api/water": {
       "post": {
-        "tags": [
-          "Water"
-        ],
+        "tags": ["Water"],
         "summary": "Add water value",
         "operationId": "waterController.addWaterValue",
         "parameters": [],
@@ -593,9 +573,7 @@
     },
     "/api/water/{id}": {
       "patch": {
-        "tags": [
-          "Water"
-        ],
+        "tags": ["Water"],
         "summary": "Update water value",
         "operationId": "waterController.updateWaterValueByID",
         "parameters": [
@@ -677,9 +655,7 @@
         ]
       },
       "delete": {
-        "tags": [
-          "Water"
-        ],
+        "tags": ["Water"],
         "summary": "Delete water value",
         "operationId": "waterController.deleteteWaterValueByID",
         "parameters": [
@@ -752,9 +728,7 @@
     },
     "/api/today": {
       "get": {
-        "tags": [
-          "Today"
-        ],
+        "tags": ["Today"],
         "summary": "Get today water values",
         "operationId": "todayControllers.getDayliStatistic",
         "parameters": [
@@ -827,9 +801,7 @@
     },
     "/api/month": {
       "get": {
-        "tags": [
-          "Month"
-        ],
+        "tags": ["Month"],
         "summary": "Get period water values",
         "operationId": "monthlyControllers.getMonthlyStatistic",
         "parameters": [
@@ -913,10 +885,7 @@
   "components": {
     "schemas": {
       "RegistrationLoginRequest": {
-        "required": [
-          "email",
-          "password"
-        ],
+        "required": ["email", "password"],
         "type": "object",
         "properties": {
           "email": {
@@ -935,9 +904,7 @@
         }
       },
       "PassRequest": {
-        "required": [
-          "email"
-        ],
+        "required": ["email"],
         "type": "object",
         "properties": {
           "email": {
@@ -949,9 +916,7 @@
         }
       },
       "PassResponse": {
-        "required": [
-          "message"
-        ],
+        "required": ["message"],
         "type": "object",
         "properties": {
           "message": {
@@ -961,10 +926,7 @@
         }
       },
       "ResetPassRequest": {
-        "required": [
-          "resetToken",
-          "newPassword"
-        ],
+        "required": ["resetToken", "newPassword"],
         "type": "object",
         "properties": {
           "resetToken": {
@@ -981,9 +943,7 @@
         }
       },
       "ResetPassResponse": {
-        "required": [
-          "message"
-        ],
+        "required": ["message"],
         "type": "object",
         "properties": {
           "message": {
@@ -993,10 +953,7 @@
         }
       },
       "RegistrationLoginResponse": {
-        "required": [
-          "user",
-          "token"
-        ],
+        "required": ["user", "token"],
         "type": "object",
         "properties": {
           "token": {
@@ -1004,12 +961,7 @@
             "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ODZjOWRjMTlmOTcxMjY5OTMzODQ5MCIsImlhdCI6MTcwMzMzMzE4MiwiZXhwIjoxNzAzNDE1OTgyfQ._o8tF4gIcZpycR5jiu9s5-CQ4EhkwzMomatg6sA-4do"
           },
           "user": {
-            "required": [
-              "email",
-              "gender",
-              "avatarURL",
-              "waterRate"
-            ],
+            "required": ["email", "gender", "avatarURL", "waterRate"],
             "type": "object",
             "properties": {
               "email": {
@@ -1020,10 +972,7 @@
                 "type": "string",
                 "example": "female",
                 "default": "female",
-                "enum": [
-                  "male",
-                  "female"
-                ]
+                "enum": ["male", "female"]
               },
               "avatarURL": {
                 "type": "string",
@@ -1043,9 +992,7 @@
         }
       },
       "AvatarRequest": {
-        "required": [
-          "avatar"
-        ],
+        "required": ["avatar"],
         "type": "object",
         "properties": {
           "avatar": {
@@ -1055,9 +1002,7 @@
         }
       },
       "AvatarResponse": {
-        "required": [
-          "avatarURL"
-        ],
+        "required": ["avatarURL"],
         "type": "object",
         "properties": {
           "avatarURL": {
@@ -1069,13 +1014,7 @@
         }
       },
       "UserCurrentResponse": {
-        "required": [
-          "name",
-          "email",
-          "gender",
-          "avatarURL",
-          "waterRate"
-        ],
+        "required": ["name", "email", "gender", "avatarURL", "waterRate"],
         "type": "object",
         "properties": {
           "name": {
@@ -1092,10 +1031,7 @@
             "type": "string",
             "example": "female",
             "default": "female",
-            "enum": [
-              "male",
-              "female"
-            ]
+            "enum": ["male", "female"]
           },
           "avatarURL": {
             "type": "string",
@@ -1112,9 +1048,7 @@
         }
       },
       "EditUserRequest": {
-        "required": [
-          "outdatedPassword"
-        ],
+        "required": ["outdatedPassword"],
         "type": "object",
         "properties": {
           "email": {
@@ -1133,10 +1067,7 @@
             "type": "string",
             "example": "female",
             "default": "female",
-            "enum": [
-              "male",
-              "female"
-            ]
+            "enum": ["male", "female"]
           },
           "outdatedPassword": {
             "type": "string",
@@ -1155,11 +1086,7 @@
         }
       },
       "EditUserResponse": {
-        "required": [
-          "email",
-          "name",
-          "gender"
-        ],
+        "required": ["email", "name", "gender"],
         "type": "object",
         "properties": {
           "email": {
@@ -1175,17 +1102,12 @@
             "type": "string",
             "example": "female",
             "default": "female",
-            "enum": [
-              "male",
-              "female"
-            ]
+            "enum": ["male", "female"]
           }
         }
       },
       "WaterRateRequest": {
-        "required": [
-          "waterRate"
-        ],
+        "required": ["waterRate"],
         "type": "object",
         "properties": {
           "waterRate": {
@@ -1198,9 +1120,7 @@
         }
       },
       "WaterRateResponse": {
-        "required": [
-          "message"
-        ],
+        "required": ["message"],
         "type": "object",
         "properties": {
           "message": {
@@ -1210,10 +1130,7 @@
         }
       },
       "WaterAddRequest": {
-        "required": [
-          "waterVolume",
-          "date"
-        ],
+        "required": ["waterVolume", "date"],
         "type": "object",
         "properties": {
           "waterVolume": {
@@ -1230,10 +1147,7 @@
         }
       },
       "WaterAddResponse": {
-        "required": [
-          "waterVolume",
-          "date"
-        ],
+        "required": ["waterVolume", "date"],
         "type": "object",
         "properties": {
           "waterVolume": {
@@ -1257,9 +1171,7 @@
         }
       },
       "WaterVolumeDeleteResponse": {
-        "required": [
-          "message"
-        ],
+        "required": ["message"],
         "type": "object",
         "properties": {
           "message": {
