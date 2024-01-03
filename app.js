@@ -25,11 +25,11 @@ app.use(express.json());
 app.use(express.static("public"));
 
 app.use("/auth", authRouter);
-app.use("/user", userRouter);
-app.use("/waterrate", waterRateRouter);
-app.use("/water", waterRouter);
-app.use("/today", todayRouter);
-app.use("/month", monthRouter);
+app.use("/api/user", userRouter);
+app.use("/api/waterrate", waterRateRouter);
+app.use("/api/water", waterRouter);
+app.use("/api/today", todayRouter);
+app.use("/api/month", monthRouter);
 app.use("/", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use((req, res) => {
