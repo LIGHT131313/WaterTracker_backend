@@ -167,7 +167,7 @@ const requestPasswordReset = async (req, res) => {
           <img src="https://yanlozovskyi.github.io/water-tracker/assets/Logo-890d13ba.png" alt="Logo" style="max-width: 100px; margin: 0 auto;">
           </a>
         </div>
-        <h2 style="color: #407BFF; font-size: 24px; margin-bottom: 20px;">Password Reset Request</h2>
+        <h2 style="color: #407BFF; font-size: 24px; margin-top: 20px; margin-bottom: 20px;">Password Reset Request</h2>
         <p style="color: #333333; font-size: 16px; line-height: 1.5;">Hello,</p>
         <p style="color: #333333; font-size: 16px; line-height: 1.5;">You are receiving this email because we received a password reset request for your account. If you did not request a password reset, please ignore this email.</p>
         <div style="text-align: center; margin: 30px 0;">
@@ -175,7 +175,7 @@ const requestPasswordReset = async (req, res) => {
         </div>
         <p style="color: #333333; font-size: 16px; line-height: 1.5;">This link is valid for the next hour.</p>
         <p style="color: #333333; font-size: 16px; line-height: 1.5;">If you are having trouble clicking the link, please copy and paste it into your web browser's address bar.</p>
-        <p style="color: #333333; font-size: 16px; margin-top: 30px;">Thank you, ${userName}</p>
+        <p style="color: #333333; font-size: 16px; margin-top: 30px; margin-bottom: 20px ;">Thank you, ${userName}</p>
         <div style="text-align: center;">
         <a href="${BASE_URL}">
           <img src="https://yanlozovskyi.github.io/water-tracker/assets/Logo-890d13ba.png" alt="Logo" style="max-width: 100px; margin: 0 auto;">
