@@ -13,6 +13,7 @@ import {
 } from "../helpers/index.js";
 
 const { JWT_SECRET, BASE_URL } = process.env;
+const WEB_URL = "https://yanlozovskyi.github.io/water-tracker/";
 
 const register = async (req, res) => {
   const { email, password } = req.body;
@@ -39,7 +40,7 @@ const register = async (req, res) => {
   await sendEmail({
     to: email,
     subject: "Welcome to WaterTracker – Start Your Hydration Journey!",
-    html: welcomeEmailTemplate(BASE_URL),
+    html: welcomeEmailTemplate(WEB_URL),
   });
 
   res.status(201).json({
@@ -117,7 +118,7 @@ const requestPasswordReset = async (req, res) => {
   await sendEmail({
     to: email,
     subject: "Password Reset",
-    html: resetPasswordEmail(BASE_URL, resetLink, userName),
+    html: resetPasswordEmail(WEB_URL, resetLink, userName),
   });
 
   res

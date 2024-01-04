@@ -1,8 +1,8 @@
-const welcomeEmailTemplate = (BASE_URL) => {
+const welcomeEmailTemplate = (WEB_URL) => {
   return `<div style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; margin: 0; padding: 20px; background-color: #f4f7fa;">
         <div style="max-width: 600px; margin: 20px auto; padding: 20px; background-color: #ffffff; border-radius: 8px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
             <div style="text-align: center;">
-                <a href="${BASE_URL}">
+                <a href="${WEB_URL}">
                     <img src="https://yanlozovskyi.github.io/water-tracker/assets/Logo-890d13ba.png" alt="Logo" style="max-width: 100px; margin: 0 auto;">
                 </a>
             </div>
@@ -21,11 +21,11 @@ const welcomeEmailTemplate = (BASE_URL) => {
             <p style="color: #333333; font-size: 16px; margin-top: 30px; margin-bottom: 20px;">Ready to get started? Log in now and take the first step towards a healthier, more hydrated you!</p>
 
             <div style="text-align: center; margin: 30px 0;">
-                <a href="${BASE_URL}/api/auth/login" target="_blank" style="background-color: #407BFF; color: #ffffff; padding: 10px 20px; text-decoration: none; font-weight: bold; border-radius: 5px; display: inline-block; font-size: 16px;">Log in now</a>
+                <a href="${WEB_URL}signin" target="_blank" style="background-color: #407BFF; color: #ffffff; padding: 10px 20px; text-decoration: none; font-weight: bold; border-radius: 5px; display: inline-block; font-size: 16px;">Log in now</a>
             </div>
 
             <div style="text-align: center;">
-                <a href="${BASE_URL}">
+                <a href="${WEB_URL}">
                     <img src="https://yanlozovskyi.github.io/water-tracker/assets/Logo-890d13ba.png" alt="Logo" style="max-width: 100px; margin: 0 auto;">
                 </a>
             </div>

@@ -1,8 +1,8 @@
-const resetPasswordEmail = (BASE_URL, resetLink, userName) => {
+const resetPasswordEmail = (WEB_URL, resetLink, userName) => {
   return ` <div style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; margin: 0; padding: 20px; background-color: #f4f7fa;">
       <div style="max-width: 600px; margin: 20px auto; padding: 20px; background-color: #ffffff; border-radius: 8px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
        <div style="text-align: center;">
-        <a href="${BASE_URL}">
+        <a href="${WEB_URL}">
           <img src="https://yanlozovskyi.github.io/water-tracker/assets/Logo-890d13ba.png" alt="Logo" style="max-width: 100px; margin: 0 auto;">
           </a>
         </div>
@@ -16,7 +16,7 @@ const resetPasswordEmail = (BASE_URL, resetLink, userName) => {
         <p style="color: #333333; font-size: 16px; line-height: 1.5;">If you are having trouble clicking the link, please copy and paste it into your web browser's address bar.</p>
         <p style="color: #333333; font-size: 16px; margin-top: 30px; margin-bottom: 20px ;">Thank you, ${userName}</p>
         <div style="text-align: center;">
-        <a href="${BASE_URL}">
+        <a href="${WEB_URL}">
           <img src="https://yanlozovskyi.github.io/water-tracker/assets/Logo-890d13ba.png" alt="Logo" style="max-width: 100px; margin: 0 auto;">
           </a>
         </div>
