@@ -1,4 +1,4 @@
-    ---
+<a href="${BASE_URL}"><img src="https://yanlozovskyi.github.io/water-tracker/assets/Logo-890d13ba.png" alt="Logo"></a>
 
 ## WaterTracker Project: Backend Development Completion Overview
 
@@ -59,7 +59,7 @@ The completion of the WaterTracker project's backend marks a significant milesto
 - Volodymyr Fetisov [GitHub](https://github.com/Fetivol) [LinkedIn](https://www.linkedin.com/in/volodymyr-fetisov-7aa069173) [Email](mailto:***)
 - Stanislav Boychuk [GitHub](https://github.com/Fasten-belts) [LinkedIn](https://www.linkedin.com/mwlite/in/stanislav-boychuk-577118285/) [Email](mailto:***)
 
-  ***
+---
 
 ## WaterTracker Backend
 
