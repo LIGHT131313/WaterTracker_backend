@@ -31,6 +31,7 @@ app.use("/api/water", waterRouter);
 app.use("/api/today", todayRouter);
 app.use("/api/month", monthRouter);
 app.use("/", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use((req, res) => {
   res.status(404).json({ message: "Not found" });
