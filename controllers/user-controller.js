@@ -92,32 +92,25 @@ const avatar = async (req, res) => {
   });
 };
 
-export const deleteUserAndData = async (req, res) => {
-  try {
-    const { userId } = req.params;
+const deleteUserAndData = async (req, res) => {
+  const { userId } = req.params;
 
-    const user = await User.findById(userId);
-    if (!user) {
-      throw new HttpError(404, "User not found");
-    }
-
-    await WaterValue.deleteMany({ owner: userId });
-
-    if (user.avatarURL) {
-      await deleteFromCloudinary(user.avatarURL);
-    }
-
-    await User.findByIdAndDelete(userId);
-
-    res.status(200).json({
-      message: "User and all related data have been successfully deleted.",
-    });
-  } catch (error) {
-    res.status(error.statusCode || 500).json({
-      message:
-        error.message || "An error occurred during the deletion process.",
-    });
+  const user = await User.findById(userId);
+  if (!user) {
+    throw new HttpError(404, "User not found");
   }
+
+  await WaterValue.deleteMany({ owner: userId });
+
+  if (user.avatarURL) {
+    await deleteFromCloudinary(user.avatarURL);
+  }
+
+  await User.findByIdAndDelete(userId);
+
+  res.status(200).json({
+    message: "User and all related data have been successfully deleted.",
+  });
 };
 
 export default {
