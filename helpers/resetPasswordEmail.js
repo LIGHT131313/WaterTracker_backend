@@ -3,7 +3,7 @@ const resetPasswordEmail = (BASE_URL, resetLink, userName) => {
       <div style="max-width: 600px; margin: 20px auto; padding: 20px; background-color: #ffffff; border-radius: 8px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
        <div style="text-align: center;">
         <a href="${BASE_URL}">
-          <img src="https://yanlozovskyi.github.io/water-tracker/assets/Logo-890d13ba.png" alt="Logo" style="max-width: 100px; margin: 0 auto;">
+          <img src="https://res.cloudinary.com/doj55bihz/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1704651372/img/Logo-890d13ba_to7trg.jpg?_s=public-apps" alt="Logo" style="max-width: 100px; margin: 0 auto;">
           </a>
         </div>
         <h2 style="color: #407BFF; font-size: 24px; margin-top: 20px; margin-bottom: 20px; text-align: center;">Password Reset Request</h2>
@@ -17,7 +17,7 @@ const resetPasswordEmail = (BASE_URL, resetLink, userName) => {
         <p style="color: #333333; font-size: 16px; margin-top: 30px; margin-bottom: 20px ;">Thank you, ${userName}</p>
         <div style="text-align: center;">
         <a href="${BASE_URL}">
-          <img src="https://yanlozovskyi.github.io/water-tracker/assets/Logo-890d13ba.png" alt="Logo" style="max-width: 100px; margin: 0 auto;">
+          <img src="https://res.cloudinary.com/doj55bihz/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1704651372/img/Logo-890d13ba_to7trg.jpg?_s=public-apps" alt="Logo" style="max-width: 100px; margin: 0 auto;">
           </a>
         </div>
       </div>

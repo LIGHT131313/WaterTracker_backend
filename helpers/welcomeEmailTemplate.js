@@ -3,7 +3,7 @@ const welcomeEmailTemplate = (BASE_URL) => {
         <div style="max-width: 600px; margin: 20px auto; padding: 20px; background-color: #ffffff; border-radius: 8px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
             <div style="text-align: center;">
                 <a href="${BASE_URL}">
-                    <img src="https://yanlozovskyi.github.io/water-tracker/assets/Logo-890d13ba.png" alt="Logo" style="max-width: 100px; margin: 0 auto;">
+                    <img src="https://res.cloudinary.com/doj55bihz/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1704651372/img/Logo-890d13ba_to7trg.jpg?_s=public-apps" alt="Logo" style="max-width: 100px; margin: 0 auto;">
                 </a>
             </div>
             <h2 style="color: #407BFF; font-size: 24px; margin-top: 20px; margin-bottom: 20px; text-align: center;">Welcome to our Water Tracker</h2>
@@ -21,12 +21,12 @@ const welcomeEmailTemplate = (BASE_URL) => {
             <p style="color: #333333; font-size: 16px; margin-top: 30px; margin-bottom: 20px;">Ready to get started? Log in now and take the first step towards a healthier, more hydrated you!</p>
 
             <div style="text-align: center; margin: 30px 0;">
-                <a href="${BASE_URL}/api/auth/login" target="_blank" style="background-color: #407BFF; color: #ffffff; padding: 10px 20px; text-decoration: none; font-weight: bold; border-radius: 5px; display: inline-block; font-size: 16px;">Log in now</a>
+                <a href="${BASE_URL}/signin" target="_blank" style="background-color: #407BFF; color: #ffffff; padding: 10px 20px; text-decoration: none; font-weight: bold; border-radius: 5px; display: inline-block; font-size: 16px;">Log in now</a>
             </div>
 
             <div style="text-align: center;">
                 <a href="${BASE_URL}">
-                    <img src="https://yanlozovskyi.github.io/water-tracker/assets/Logo-890d13ba.png" alt="Logo" style="max-width: 100px; margin: 0 auto;">
+                    <img src="https://res.cloudinary.com/doj55bihz/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1704651372/img/Logo-890d13ba_to7trg.jpg?_s=public-apps" alt="Logo" style="max-width: 100px; margin: 0 auto;">
                 </a>
             </div>
         </div>
