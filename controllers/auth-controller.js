@@ -112,7 +112,7 @@ const requestPasswordReset = async (req, res) => {
 
   const userName = updatedUser.name ? updatedUser.name : "User";
 
-  const resetLink = `${BASE_URL}/api/auth/reset-pass?resetToken=${resetToken}`;
+  const resetLink = `${BASE_URL}/reset-pass?resetToken=${resetToken}`;
 
   await sendEmail({
     to: email,
