@@ -57,7 +57,7 @@ The completion of the WaterTracker project's backend marks a significant milesto
 
 - Serhii Kozhanov [GitHub](https://github.com/LIGHT131313) [LinkedIn](https://www.linkedin.com/in/serhii-kozhanov/) [Email](mailto:131313light@gmail.com)
 - Volodymyr Fetisov [GitHub](https://github.com/Fetivol) [LinkedIn](https://www.linkedin.com/in/volodymyr-fetisov-7aa069173) [Email](mailto:***)
-- Stanislav Boychuk [GitHub](https://github.com/Fasten-belts) [LinkedIn](https://www.linkedin.com/mwlite/in/stanislav-boychuk-577118285/) [Email](mailto:***)
+- Stanislav Boychuk [GitHub](https://github.com/Fasten-belts) [LinkedIn](www.linkedin.com/in/stanislav-boychuk) [Email](mailto:boychukstanislav@gmail.com)
 
 ---
 
