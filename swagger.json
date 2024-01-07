@@ -3,7 +3,7 @@
   "info": {
     "version": "1.0.5",
     "title": "WaterTracker Backend",
-    "description": "API documentation for project WaterTracker",
+    "description": "<a href=\"${BASE_URL}\"><img src=\"https://yanlozovskyi.github.io/water-tracker/assets/Logo-890d13ba.png\" alt=\"Logo\"></a>\n\nWaterTracker Project Backend Development Completion Overview\n---\n\n### Introduction\n\nThe backend of the WaterTracker project has been successfully developed, embodying a fusion of modern web development practices and robust server-side technology. This comprehensive backend serves as the core of the application, skillfully managing data, user interactions, and seamless communication with the frontend. Below is an overview of the accomplished components and functionalities.\n\n### Completed Backend Components and Functionalities\n\n1. **Development Server Deployment Completed**\n- **Environment Set Up**: A development environment mirroring production settings has been established and optimized for peak performance, including advanced load balancing and memory management techniques.\n2. **Module Integration Finalized**\n- **Essential and Custom Modules**: Key backend modules for database interaction, authentication, and logging have been integrated. Custom modules tailored for specific application needs have also been developed, enhancing the backend's efficiency.\n3. **CORS Configuration Implemented**\n- **Secure and Flexible Data Exchange**: Strict CORS policies have been put in place, managing resource sharing between different origins and ensuring secure data exchange. Configurable settings allow varied access levels for different domains.\n4. **Advanced Error Handling System**\n- **Error Logging and Management**: A sophisticated logging system to record exceptions and errors has been implemented, facilitating easier debugging. User-friendly error responses have been designed for better user experience.\n5. **Database Connectivity and Optimization**\n- **Structured Database and Connection Management**: The database schema has been optimized for the application's data needs. Connection pooling has been implemented to enhance performance and reliability in database interactions.\n6. **RESTful API Development**\n- **Intuitive and Versioned APIs**: RESTful API endpoints have been crafted and are easily integrable. API versioning has been introduced for smooth transitions in future updates.\n7. **User Authentication and Authorization System**\n- **Secure Authentication and RBAC**: A secure user authentication flow using token-based systems like JWT has been established. Role-Based Access Control (RBAC) has been implemented to enforce access policies based on user roles.\n8. **Performance Optimization Achieved**\n- **Optimized Queries and Caching**: SQL queries have been optimized for faster response times. Caching mechanisms like Redis have been utilized for frequently accessed data, significantly improving performance.\n9. **Enhanced Security Measures**\n- **Proactive Vulnerability Mitigation and Encryption**: Regular updates and audits have been conducted to mitigate vulnerabilities. Encryption practices have been employed to protect sensitive data, both in transit and at rest.\n10. **Testing and Comprehensive Documentation**\n- **Automated Testing Suite**: A suite of automated tests (unit, integration, end-to-end) has been implemented to ensure backend robustness.\n- **Up-to-Date API Documentation**: Comprehensive API documentation has been created, providing easy reference for future development and usage.\n### Conclusion\nThe completion of the WaterTracker project's backend marks a significant milestone in the application's development journey. It stands as a testament to state-of-the-art backend engineering, prioritizing security, performance, and scalability. The backend is not only fully functional but also primed for future enhancements and expansions to meet evolving user needs.\n\n### Backend Team:\n- Serhii Kozhanov [GitHub](https://github.com/LIGHT131313) [LinkedIn](https://www.linkedin.com/in/serhii-kozhanov/) [Email](mailto:131313light@gmail.com)\n- Volodymyr Fetisov [GitHub](https://github.com/Fetivol) [LinkedIn](https://www.linkedin.com/in/volodymyr-fetisov-7aa069173) [Email](mailto:Fetisowova@gmail.com)\n- Stanislav Boychuk [GitHub](https://github.com/Fasten-belts) [LinkedIn](https://www.linkedin.com/in/stanislav-boychuk) [Email](mailto:boychukstanislav@gmail.com)\n\n---",
     "license": {
       "name": "MIT",
       "url": "https://opensource.org/licenses/MIT"
@@ -12,9 +12,6 @@
   "servers": [
     {
       "url": "https://watertracker-backend.onrender.com"
-    },
-    {
-      "url": "http://localhost:4000"
     }
   ],
   "tags": [
@@ -46,7 +43,9 @@
   "paths": {
     "/api/auth/register": {
       "post": {
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "summary": "Registration user",
         "operationId": "authController.register",
         "parameters": [],
@@ -100,7 +99,9 @@
     },
     "/api/auth/login": {
       "post": {
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "summary": "Login user",
         "operationId": "authController.login",
         "parameters": [],
@@ -154,7 +155,9 @@
     },
     "/api/auth/request-pass": {
       "post": {
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "summary": "Send password recovery request",
         "operationId": "authController.requestPasswordReset",
         "parameters": [],
@@ -208,7 +211,9 @@
     },
     "/api/auth/reset-pass": {
       "post": {
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "summary": "Change password after email request",
         "operationId": "authController.resetPassword",
         "parameters": [],
@@ -249,7 +254,9 @@
     },
     "/api/auth/logout": {
       "post": {
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "summary": "Logout user",
         "description": "",
         "operationId": "authController.logout",
@@ -281,7 +288,9 @@
     },
     "/api/user/avatar": {
       "post": {
-        "tags": ["User"],
+        "tags": [
+          "User"
+        ],
         "summary": "Add/change user avatar",
         "operationId": "userController.avatar",
         "parameters": [],
@@ -345,7 +354,9 @@
     },
     "/api/user/current": {
       "get": {
-        "tags": ["User"],
+        "tags": [
+          "User"
+        ],
         "summary": "Get current user information",
         "operationId": "userController.getCurrent",
         "parameters": [],
@@ -383,7 +394,9 @@
     },
     "/api/user/edit": {
       "patch": {
-        "tags": ["User"],
+        "tags": [
+          "User"
+        ],
         "summary": "Change user information",
         "operationId": "userController.updateUserInfo",
         "parameters": [],
@@ -441,8 +454,10 @@
       }
     },
     "/api/waterrate": {
-      "post": {
-        "tags": ["Waterrate"],
+      "patch": {
+        "tags": [
+          "Waterrate"
+        ],
         "summary": "Change user waterrate",
         "operationId": "waterRateController.updateWaterRate",
         "parameters": [],
@@ -451,7 +466,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/WaterRateRequest"
+                "$ref": "#/components/schemas/WaterRate"
               }
             }
           },
@@ -463,7 +478,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/WaterRateResponse"
+                  "$ref": "#/components/schemas/WaterRate"
                 }
               }
             }
@@ -501,7 +516,9 @@
     },
     "/api/water": {
       "post": {
-        "tags": ["Water"],
+        "tags": [
+          "Water"
+        ],
         "summary": "Add water value",
         "operationId": "waterController.addWaterValue",
         "parameters": [],
@@ -573,7 +590,9 @@
     },
     "/api/water/{id}": {
       "patch": {
-        "tags": ["Water"],
+        "tags": [
+          "Water"
+        ],
         "summary": "Update water value",
         "operationId": "waterController.updateWaterValueByID",
         "parameters": [
@@ -655,7 +674,9 @@
         ]
       },
       "delete": {
-        "tags": ["Water"],
+        "tags": [
+          "Water"
+        ],
         "summary": "Delete water value",
         "operationId": "waterController.deleteteWaterValueByID",
         "parameters": [
@@ -728,7 +749,9 @@
     },
     "/api/today": {
       "get": {
-        "tags": ["Today"],
+        "tags": [
+          "Today"
+        ],
         "summary": "Get today water values",
         "operationId": "todayControllers.getDayliStatistic",
         "parameters": [
@@ -746,7 +769,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Getting today water values successfully\n\n**_id** - null\n\n**waterVolumeSum** - integer\n\n**waterVolume** - integer\n  \n**date** - string\n\n**owner** - string\n\n**_id** - string\n\n**waterVolumePercentage** - integer            \n",
+            "description": "Getting today water values successfully\n\n**waterVolumeSum** - integer\n\n**waterVolume** - integer\n  \n**date** - string\n\n**owner** - string\n\n**_id** - string\n\n**waterVolumePercentage** - integer            \n",
             "content": {
               "application/json": {
                 "schema": {
@@ -801,7 +824,9 @@
     },
     "/api/month": {
       "get": {
-        "tags": ["Month"],
+        "tags": [
+          "Month"
+        ],
         "summary": "Get period water values",
         "operationId": "monthlyControllers.getMonthlyStatistic",
         "parameters": [
@@ -885,7 +910,10 @@
   "components": {
     "schemas": {
       "RegistrationLoginRequest": {
-        "required": ["email", "password"],
+        "required": [
+          "email",
+          "password"
+        ],
         "type": "object",
         "properties": {
           "email": {
@@ -904,7 +932,9 @@
         }
       },
       "PassRequest": {
-        "required": ["email"],
+        "required": [
+          "email"
+        ],
         "type": "object",
         "properties": {
           "email": {
@@ -916,7 +946,9 @@
         }
       },
       "PassResponse": {
-        "required": ["message"],
+        "required": [
+          "message"
+        ],
         "type": "object",
         "properties": {
           "message": {
@@ -926,7 +958,10 @@
         }
       },
       "ResetPassRequest": {
-        "required": ["resetToken", "newPassword"],
+        "required": [
+          "resetToken",
+          "newPassword"
+        ],
         "type": "object",
         "properties": {
           "resetToken": {
@@ -943,7 +978,9 @@
         }
       },
       "ResetPassResponse": {
-        "required": ["message"],
+        "required": [
+          "message"
+        ],
         "type": "object",
         "properties": {
           "message": {
@@ -953,7 +990,10 @@
         }
       },
       "RegistrationLoginResponse": {
-        "required": ["user", "token"],
+        "required": [
+          "user",
+          "token"
+        ],
         "type": "object",
         "properties": {
           "token": {
@@ -961,7 +1001,12 @@
             "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ODZjOWRjMTlmOTcxMjY5OTMzODQ5MCIsImlhdCI6MTcwMzMzMzE4MiwiZXhwIjoxNzAzNDE1OTgyfQ._o8tF4gIcZpycR5jiu9s5-CQ4EhkwzMomatg6sA-4do"
           },
           "user": {
-            "required": ["email", "gender", "avatarURL", "waterRate"],
+            "required": [
+              "email",
+              "gender",
+              "avatarURL",
+              "waterRate"
+            ],
             "type": "object",
             "properties": {
               "email": {
@@ -972,7 +1017,10 @@
                 "type": "string",
                 "example": "female",
                 "default": "female",
-                "enum": ["male", "female"]
+                "enum": [
+                  "male",
+                  "female"
+                ]
               },
               "avatarURL": {
                 "type": "string",
@@ -992,7 +1040,9 @@
         }
       },
       "AvatarRequest": {
-        "required": ["avatar"],
+        "required": [
+          "avatar"
+        ],
         "type": "object",
         "properties": {
           "avatar": {
@@ -1002,7 +1052,9 @@
         }
       },
       "AvatarResponse": {
-        "required": ["avatarURL"],
+        "required": [
+          "avatarURL"
+        ],
         "type": "object",
         "properties": {
           "avatarURL": {
@@ -1014,7 +1066,13 @@
         }
       },
       "UserCurrentResponse": {
-        "required": ["name", "email", "gender", "avatarURL", "waterRate"],
+        "required": [
+          "name",
+          "email",
+          "gender",
+          "avatarURL",
+          "waterRate"
+        ],
         "type": "object",
         "properties": {
           "name": {
@@ -1031,7 +1089,10 @@
             "type": "string",
             "example": "female",
             "default": "female",
-            "enum": ["male", "female"]
+            "enum": [
+              "male",
+              "female"
+            ]
           },
           "avatarURL": {
             "type": "string",
@@ -1048,7 +1109,6 @@
         }
       },
       "EditUserRequest": {
-        "required": ["outdatedPassword"],
         "type": "object",
         "properties": {
           "email": {
@@ -1067,7 +1127,10 @@
             "type": "string",
             "example": "female",
             "default": "female",
-            "enum": ["male", "female"]
+            "enum": [
+              "male",
+              "female"
+            ]
           },
           "outdatedPassword": {
             "type": "string",
@@ -1086,7 +1149,11 @@
         }
       },
       "EditUserResponse": {
-        "required": ["email", "name", "gender"],
+        "required": [
+          "email",
+          "name",
+          "gender"
+        ],
         "type": "object",
         "properties": {
           "email": {
@@ -1102,12 +1169,17 @@
             "type": "string",
             "example": "female",
             "default": "female",
-            "enum": ["male", "female"]
+            "enum": [
+              "male",
+              "female"
+            ]
           }
         }
       },
-      "WaterRateRequest": {
-        "required": ["waterRate"],
+      "WaterRate": {
+        "required": [
+          "waterRate"
+        ],
         "type": "object",
         "properties": {
           "waterRate": {
@@ -1119,18 +1191,11 @@
           }
         }
       },
-      "WaterRateResponse": {
-        "required": ["message"],
-        "type": "object",
-        "properties": {
-          "message": {
-            "type": "string",
-            "example": "WaterRate updated succesfully"
-          }
-        }
-      },
       "WaterAddRequest": {
-        "required": ["waterVolume", "date"],
+        "required": [
+          "waterVolume",
+          "date"
+        ],
         "type": "object",
         "properties": {
           "waterVolume": {
@@ -1147,7 +1212,10 @@
         }
       },
       "WaterAddResponse": {
-        "required": ["waterVolume", "date"],
+        "required": [
+          "waterVolume",
+          "date"
+        ],
         "type": "object",
         "properties": {
           "waterVolume": {
@@ -1171,7 +1239,9 @@
         }
       },
       "WaterVolumeDeleteResponse": {
-        "required": ["message"],
+        "required": [
+          "message"
+        ],
         "type": "object",
         "properties": {
           "message": {
@@ -1191,16 +1261,11 @@
         "items": {
           "type": "object",
           "required": [
-            "_id",
             "waterVolumeSum",
             "waterVolumes",
             "waterVolumePercentage"
           ],
           "properties": {
-            "_id": {
-              "type": "string",
-              "default": null
-            },
             "waterVolumeSum": {
               "type": "integer",
               "example": 300,
