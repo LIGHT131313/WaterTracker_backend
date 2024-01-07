@@ -12,7 +12,7 @@ const waterRateRouter = express.Router();
 
 waterRateRouter.use(authenticate);
 
-waterRateRouter.post(
+waterRateRouter.patch(
   "/",
   isEmptyBody,
   validateBody(userWaterRateSchema),

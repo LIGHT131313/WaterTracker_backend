@@ -56,16 +56,12 @@ The completion of the WaterTracker project's backend marks a significant milesto
 ### Backend Team:
 
 - Serhii Kozhanov [GitHub](https://github.com/LIGHT131313) [LinkedIn](https://www.linkedin.com/in/serhii-kozhanov/) [Email](mailto:131313light@gmail.com)
-- Volodymyr Fetisov [GitHub](https://github.com/Fetivol) [LinkedIn](https://www.linkedin.com/in/volodymyr-fetisov-7aa069173) [Email](mailto:***)
-- Stanislav Boychuk [GitHub](https://github.com/Fasten-belts) [LinkedIn](https://www.linkedin.com/mwlite/in/stanislav-boychuk-577118285/) [Email](mailto:***)
+- Volodymyr Fetisov [GitHub](https://github.com/Fetivol) [LinkedIn](https://www.linkedin.com/in/volodymyr-fetisov-7aa069173) [Email](mailto:Fetisowova@gmail.com)
+- Stanislav Boychuk [GitHub](https://github.com/Fasten-belts) [LinkedIn](https://www.linkedin.com/in/stanislav-boychuk) [Email](mailto:boychukstanislav@gmail.com)
 
 ---
-
-## WaterTracker Backend
 
 ### Команди:
 
 - `npm start` &mdash; старт сервера в режимі production
 - `npm run start:dev` &mdash; старт сервера в режимі розробки (development)
-- `npm run lint` &mdash; запустити виконання перевірки коду з eslint, необхідно виконувати перед кожним PR та виправляти всі помилки лінтера
-- `npm lint:fix` &mdash; та ж перевірка лінтера, але з автоматичними виправленнями простих помилок
