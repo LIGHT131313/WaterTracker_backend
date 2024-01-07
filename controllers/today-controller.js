@@ -45,6 +45,11 @@ const getDayliStatistic = async (req, res) => {
         },
       },
     },
+    {
+      $project: {
+        _id: 0,
+      },
+    },
   ]);
 
   if (result.length === 0) {

@@ -40,6 +40,11 @@ const updateUserInfo = async (req, res) => {
     }
 
     hashedNewPassword = await bcrypt.hash(newPassword, 10);
+  } else if (newPassword) {
+    throw HttpError(
+      400,
+      "To change the password, provide both outdatedPassword and newPassword"
+    );
   }
 
   if (newEmail && newEmail !== currentEmail) {

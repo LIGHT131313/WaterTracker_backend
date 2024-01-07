@@ -7,12 +7,8 @@ import { HttpError } from "../helpers/index.js";
 
 const getMonthlyStatistic = async (req, res) => {
   const { _id: owner } = req.user;
-  const { startDate, endDate } = req.query; // - для періоду
-  // const { year, month } = req.query; - для конкретного місяця
+  const { startDate, endDate } = req.query;
   const { waterRate } = await User.findById(owner);
-
-  // const startDate = new Date(year, month - 1, 1); - для конкретного місяця
-  // const endDate = new Date(year, month, 0); - для конкретного місяця
 
   if (!waterRate) {
     throw HttpError(500, "Internal Server Error");
@@ -26,9 +22,8 @@ const getMonthlyStatistic = async (req, res) => {
           {
             date: {
               $gte: new Date(startDate),
-              // $gte: startDate, - для конкретного місяця
+
               $lte: new Date(new Date(endDate).getTime() + 24 * 60 * 60 * 1000),
-              // $lte: endDate, - для конкретного місяця
             },
           },
         ],

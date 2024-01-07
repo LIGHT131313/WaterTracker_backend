@@ -6,11 +6,11 @@ const updateWaterRate = async (req, res) => {
   const { waterRate } = req.body;
   const { _id } = req.user;
 
-  await User.findByIdAndUpdate(_id, { waterRate: waterRate });
-
-  res.status(201).json({
-    message: "WaterRate updated succesfully",
+  const updatedWaterRate = await User.findByIdAndUpdate(_id, {
+    waterRate: waterRate,
   });
+
+  res.status(201).json({ waterRate: updatedWaterRate.waterRate });
 };
 
 export default {
