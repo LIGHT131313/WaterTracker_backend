@@ -12,7 +12,7 @@ import {
   resetPasswordEmail,
 } from "../helpers/index.js";
 
-const { JWT_SECRET, BASE_URL, FRONTEND_URL } = process.env;
+const { JWT_SECRET, BASE_URL } = process.env;
 
 const register = async (req, res) => {
   const { email, password } = req.body;
@@ -39,7 +39,7 @@ const register = async (req, res) => {
   await sendEmail({
     to: email,
     subject: "Welcome to WaterTracker – Start Your Hydration Journey!",
-    html: welcomeEmailTemplate(FRONTEND_URL),
+    html: welcomeEmailTemplate(BASE_URL),
   });
 
   res.status(201).json({
@@ -112,12 +112,12 @@ const requestPasswordReset = async (req, res) => {
 
   const userName = updatedUser.name ? updatedUser.name : "User";
 
-  const resetLink = `${FRONTEND_URL}/water-tracker/api/auth/reset-pass?resetToken=${resetToken}`;
+  const resetLink = `${BASE_URL}/api/auth/reset-pass?resetToken=${resetToken}`;
 
   await sendEmail({
     to: email,
     subject: "Password Reset",
-    html: resetPasswordEmail(FRONTEND_URL, resetLink, userName),
+    html: resetPasswordEmail(BASE_URL, resetLink, userName),
   });
 
   res

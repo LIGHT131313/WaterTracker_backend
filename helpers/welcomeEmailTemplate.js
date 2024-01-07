@@ -21,7 +21,7 @@ const welcomeEmailTemplate = (BASE_URL) => {
             <p style="color: #333333; font-size: 16px; margin-top: 30px; margin-bottom: 20px;">Ready to get started? Log in now and take the first step towards a healthier, more hydrated you!</p>
 
             <div style="text-align: center; margin: 30px 0;">
-                <a href="${BASE_URL}/api/auth/login" target="_blank" style="background-color: #407BFF; color: #ffffff; padding: 10px 20px; text-decoration: none; font-weight: bold; border-radius: 5px; display: inline-block; font-size: 16px;">Log in now</a>
+                <a href="${BASE_URL}/signin" target="_blank" style="background-color: #407BFF; color: #ffffff; padding: 10px 20px; text-decoration: none; font-weight: bold; border-radius: 5px; display: inline-block; font-size: 16px;">Log in now</a>
             </div>
 
             <div style="text-align: center;">
