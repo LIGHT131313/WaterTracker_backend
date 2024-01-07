@@ -4,8 +4,12 @@ import fs from "fs/promises";
 
 import User from "../models/User.js";
 
+import WaterValue from "../models/WaterValue.js";
+
 import { ctrlWrapper } from "../decorators/index.js";
 import { HttpError, cloudinary } from "../helpers/index.js";
+
+import { deleteFromCloudinary } from "../helpers/cloudinary.js";
 
 const getCurrent = async (req, res) => {
   const { name = "", email, gender, avatarURL, waterRate } = req.user;
@@ -88,8 +92,37 @@ const avatar = async (req, res) => {
   });
 };
 
+export const deleteUserAndData = async (req, res) => {
+  try {
+    const { userId } = req.params;
+
+    const user = await User.findById(userId);
+    if (!user) {
+      throw new HttpError(404, "User not found");
+    }
+
+    await WaterValue.deleteMany({ owner: userId });
+
+    if (user.avatarURL) {
+      await deleteFromCloudinary(user.avatarURL);
+    }
+
+    await User.findByIdAndDelete(userId);
+
+    res.status(200).json({
+      message: "User and all related data have been successfully deleted.",
+    });
+  } catch (error) {
+    res.status(error.statusCode || 500).json({
+      message:
+        error.message || "An error occurred during the deletion process.",
+    });
+  }
+};
+
 export default {
   avatar: ctrlWrapper(avatar),
   getCurrent: ctrlWrapper(getCurrent),
   updateUserInfo: ctrlWrapper(updateUserInfo),
+  deleteUserAndData: ctrlWrapper(deleteUserAndData),
 };

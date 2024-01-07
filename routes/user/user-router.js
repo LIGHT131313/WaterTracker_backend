@@ -27,4 +27,6 @@ userRouter.post(
   userController.avatar
 );
 
+userRouter.delete("/:userId", authenticate, userController.deleteUserAndData);
+
 export default userRouter;
