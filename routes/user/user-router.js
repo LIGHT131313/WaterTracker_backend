@@ -33,9 +33,8 @@ userRouter.post(
 );
 
 userRouter.delete(
-  "/:userId",
+  "/delete-account",
   authenticate,
-  isValidId,
   userController.deleteUserAndData
 );
 
