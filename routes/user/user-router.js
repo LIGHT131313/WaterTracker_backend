@@ -2,12 +2,7 @@ import express from "express";
 
 import userController from "../../controllers/user-controller.js";
 
-import {
-  authenticate,
-  isEmptyBody,
-  upload,
-  isValidId,
-} from "../../middlewares/index.js";
+import { authenticate, isEmptyBody, upload } from "../../middlewares/index.js";
 
 import { validateBody } from "../../decorators/index.js";
 
