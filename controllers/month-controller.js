@@ -11,7 +11,7 @@ const getMonthlyStatistic = async (req, res) => {
   const { waterRate } = await User.findById(owner);
 
   if (!waterRate) {
-    throw HttpError(500, "Internal Server Error");
+    throw HttpError(400, "Water rate not provided");
   }
 
   const result = await WaterValue.aggregate([
@@ -51,13 +51,6 @@ const getMonthlyStatistic = async (req, res) => {
       },
     },
   ]);
-
-  if (result.length === 0) {
-    throw HttpError(
-      404,
-      `Data for this period: ${startDate} - ${endDate} not found`
-    );
-  }
 
   res.json(result);
 };
