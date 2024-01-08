@@ -93,20 +93,20 @@ const avatar = async (req, res) => {
 };
 
 const deleteUserAndData = async (req, res) => {
-  const { userId } = req.params;
+  const { _id } = req.user;
 
-  const user = await User.findById(userId);
+  const user = await User.findById(_id);
   if (!user) {
     throw new HttpError(404, "User not found");
   }
 
-  await WaterValue.deleteMany({ owner: userId });
+  await WaterValue.deleteMany({ owner: _id });
 
   if (user.avatarURL) {
     await deleteFromCloudinary(user.avatarURL);
   }
 
-  await User.findByIdAndDelete(userId);
+  await User.findByIdAndDelete(_id);
 
   res.status(200).json({
     message: "User and all related data have been successfully deleted.",
