@@ -1,3 +1,5 @@
+!!!TEST README!!!
+
 <a href="${BASE_URL}"><img src="https://yanlozovskyi.github.io/water-tracker/assets/Logo-890d13ba.png" alt="Logo"></a>
 
 ## WaterTracker Project: Backend Development Completion Overview
@@ -65,3 +67,58 @@ The completion of the WaterTracker project's backend marks a significant milesto
 
 - `npm start` &mdash; старт сервера в режимі production
 - `npm run start:dev` &mdash; старт сервера в режимі розробки (development)
+
+# WaterTracker_Backend
+
+Node.js server for the WaterTracker app, facilitating water intake tracking and data management.
+
+## Table of Content
+
+- [Routing](#routing)
+- [Features](#features)
+- [Getting Started](#getting-started)
+- [Technologies Used](#technologies-used)
+- [Contributors](#contributors)
+
+## Routing
+
+### Auth Routes
+
+- `/register`: User registration
+- `/login`: User login
+- `/current`: Retrieve current user info
+- `/logout`: User logout
+- `/avatars`: Update user avatars
+
+### Water Notes Routes
+
+- CRUD operations for water notes (GET, POST, DELETE, PUT, PATCH).
+
+## Features
+
+- User Authentication & Management
+- Water Note Management
+- [Other features...]
+
+## Getting Started
+
+1. Clone the repo: `git clone [repo link]`
+2. Install dependencies: `npm install`
+3. Start the server: `npm start` or `npm run start:dev`
+
+## Technologies Used
+
+- Node.js
+- Express.js
+- MongoDB
+- Mongoose
+- JWT (JSON Web Tokens)
+- Bcrypt
+- Dotenv
+- CORS
+- Nodemon
+
+## Contributors
+
+- [Contributor Name] [GitHub](GitHub Link) - Role/Contribution
+- [Additional Contributors...]
