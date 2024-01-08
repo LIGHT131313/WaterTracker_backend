@@ -11,7 +11,7 @@ const googleAuthHelper = async (data) => {
   const { email, given_name, picture } = data;
 
   const existingUser = await User.findOne({ email });
-  console.log(existingUser);
+
   if (!existingUser) {
     const verificationToken = nanoid();
     const hashPass = await bcrypt.hash(nanoid(), 10);

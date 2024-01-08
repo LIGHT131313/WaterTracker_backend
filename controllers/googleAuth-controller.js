@@ -4,11 +4,14 @@ import { googleAuthHelper } from "../helpers/index.js";
 
 import { ctrlWrapper } from "../decorators/index.js";
 
-const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, BASE_URL } = process.env;
+const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, BASE_URL, BACKEND_URL } =
+  process.env;
+
 const googleAuth = async (req, res) => {
   const stringifiedParams = queryString.stringify({
     client_id: GOOGLE_CLIENT_ID,
-    redirect_uri: "http://localhost:4000/api/auth/google-redirect", //back-end link
+    redirect_uri: `${BACKEND_URL}/api/auth/google-redirect`, //back-end link
+    // redirect_uri: `http://localhost:4000/api/auth/google-redirect`,
     // куда гугл может отдавать управление ему нужно понимать
     //какие сілки будут валидніми для редиректа
     scope: [
@@ -36,7 +39,8 @@ const goodleRedirect = async (req, res) => {
     data: new URLSearchParams({
       client_id: GOOGLE_CLIENT_ID,
       client_secret: GOOGLE_CLIENT_SECRET,
-      redirect_uri: "http://localhost:4000/api/auth/google-redirect", //back-end
+      redirect_uri: `${BACKEND_URL}/api/auth/google-redirect`, //back-end
+      //   redirect_uri: `http://localhost:4000/api/auth/google-redirect`,
       grant_type: "authorization_code",
       code,
     }),
