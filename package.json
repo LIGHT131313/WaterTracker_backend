@@ -11,6 +11,7 @@
     "lint:fix": "eslint --fix **/*.js"
   },
   "dependencies": {
+    "axios": "^1.6.5",
     "bcryptjs": "^2.4.3",
     "cloudinary": "^1.41.0",
     "cors": "2.8.5",
@@ -26,6 +27,7 @@
     "multer": "^1.4.5-lts.1",
     "nanoid": "^5.0.3",
     "nodemailer": "^6.9.7",
+    "query-string": "^8.1.0",
     "swagger-ui-express": "^5.0.0"
   },
   "devDependencies": {

@@ -1,7 +1,7 @@
 import express from "express";
 
 import authController from "../controllers/auth-controller.js";
-
+import googleAuthController from "../controllers/googleAuth-controller.js";
 import { authenticate, isEmptyBody } from "../middlewares/index.js";
 
 import { validateBody } from "../decorators/index.js";
@@ -44,5 +44,8 @@ authRouter.post(
   validateBody(userResetPasswordSchema),
   authController.resetPassword
 );
+
+authRouter.get("/google", googleAuthController.googleAuth);
+authRouter.get("/google-redirect", googleAuthController.goodleRedirect);
 
 export default authRouter;
