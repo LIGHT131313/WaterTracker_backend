@@ -12,7 +12,7 @@ cloudinary.config({
 export const deleteFromCloudinary = async (imageUrl) => {
   const publicId = imageUrl.split("/").pop().split(".")[0];
   try {
-    await cloudinary.uploader.destroy(publicId);
+    await cloudinary.uploader.destroy(`user_avatars/${publicId}`);
   } catch (error) {
     throw new Error("Error deleting image from Cloudinary: " + error.message);
   }
