@@ -2,7 +2,12 @@ import express from "express";
 
 import userController from "../../controllers/user-controller.js";
 
-import { authenticate, isEmptyBody, upload } from "../../middlewares/index.js";
+import {
+  authenticate,
+  isEmptyBody,
+  upload,
+  isValidId,
+} from "../../middlewares/index.js";
 
 import { validateBody } from "../../decorators/index.js";
 
@@ -27,6 +32,11 @@ userRouter.post(
   userController.avatar
 );
 
-userRouter.delete("/:userId", authenticate, userController.deleteUserAndData);
+userRouter.delete(
+  "/:userId",
+  authenticate,
+  isValidId,
+  userController.deleteUserAndData
+);
 
 export default userRouter;
