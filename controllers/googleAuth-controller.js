@@ -10,10 +10,7 @@ const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, BASE_URL, BACKEND_URL } =
 const googleAuth = async (req, res) => {
   const stringifiedParams = queryString.stringify({
     client_id: GOOGLE_CLIENT_ID,
-    redirect_uri: `${BACKEND_URL}/api/auth/google-redirect`, //back-end link
-    // redirect_uri: `http://localhost:4000/api/auth/google-redirect`,
-    // куда гугл может отдавать управление ему нужно понимать
-    //какие сілки будут валидніми для редиректа
+    redirect_uri: `${BACKEND_URL}/api/auth/google-redirect`,
     scope: [
       "https://www.googleapis.com/auth/userinfo.email",
       "https://www.googleapis.com/auth/userinfo.profile",
@@ -39,8 +36,7 @@ const goodleRedirect = async (req, res) => {
     data: new URLSearchParams({
       client_id: GOOGLE_CLIENT_ID,
       client_secret: GOOGLE_CLIENT_SECRET,
-      redirect_uri: `${BACKEND_URL}/api/auth/google-redirect`, //back-end
-      //   redirect_uri: `http://localhost:4000/api/auth/google-redirect`,
+      redirect_uri: `${BACKEND_URL}/api/auth/google-redirect`,
       grant_type: "authorization_code",
       code,
     }),
