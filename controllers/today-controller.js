@@ -14,7 +14,7 @@ const getDayliStatistic = async (req, res) => {
     throw HttpError(400, "Water rate not provided");
   }
 
-  const result = await WaterValue.aggregate([
+  let result = await WaterValue.aggregate([
     {
       $match: {
         $and: [
@@ -51,6 +51,16 @@ const getDayliStatistic = async (req, res) => {
       },
     },
   ]);
+
+  if (result.length === 0) {
+    result = [
+      {
+        waterVolumeSum: 0,
+        waterVolumes: [],
+        waterVolumePercentage: 0,
+      },
+    ];
+  }
 
   res.json(result);
 };
