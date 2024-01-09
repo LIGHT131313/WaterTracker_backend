@@ -2,6 +2,8 @@ import { Schema, model } from "mongoose";
 
 import { handleSaveError, preUpdate } from "./hooks.js";
 
+import { dateRegexp } from "../utils/validation/waterValidationSchemas.js";
+
 const waterSchema = new Schema(
   {
     waterVolume: {
@@ -13,6 +15,7 @@ const waterSchema = new Schema(
     date: {
       type: Date,
       required: true,
+      match: dateRegexp,
     },
     owner: {
       type: Schema.Types.ObjectId,

@@ -20,7 +20,7 @@ userRouter.patch(
   userController.updateUserInfo
 );
 
-userRouter.post(
+userRouter.patch(
   "/avatar",
   authenticate,
   upload.single("avatar"),
