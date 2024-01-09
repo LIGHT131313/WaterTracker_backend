@@ -1,6 +1,6 @@
 import Joi from "joi";
 
-export const dateRegexp = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d{3})?Z$/;
+export const dateRegexp = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}/;
 
 export const waterAddSchema = Joi.object({
   waterVolume: Joi.number().min(0).max(5000).required().messages({
