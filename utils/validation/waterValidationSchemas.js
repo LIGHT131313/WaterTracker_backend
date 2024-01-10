@@ -10,7 +10,7 @@ export const waterAddSchema = Joi.object({
   date: Joi.string()
     .pattern(dateRegexp)
     .message(
-      '"date" must be a ISO 8601 date string with timezone offset -> example 2024-01-10T00:05:50.032Z'
+      '"date" must be a ISO 8601 date string with timezone offset -> example 2024-01-10T00:05'
     )
     .required()
     .custom((value, helpers) => {
@@ -27,7 +27,7 @@ export const waterUpdateSchema = Joi.object({
   date: Joi.string()
     .pattern(dateRegexp)
     .message(
-      '"date" must be a ISO 8601 date string with timezone offset -> example 2024-01-10T00:05:50.032Z'
+      '"date" must be a ISO 8601 date string with timezone offset -> example 2024-01-10T00:05'
     )
     .custom((value, helpers) => {
       const date = new Date(value);
