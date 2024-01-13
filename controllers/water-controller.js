@@ -2,7 +2,7 @@ import WaterValue from "../models/WaterValue.js";
 
 import { ctrlWrapper } from "../decorators/index.js";
 
-import { HttpError } from "../helpers/index.js";
+import { HttpError, putZeroSec } from "../helpers/index.js";
 
 const getWaterValueByID = async (req, res) => {
   const { id } = req.params;
@@ -14,19 +14,26 @@ const getWaterValueByID = async (req, res) => {
 };
 const addWaterValue = async (req, res) => {
   const { _id: owner } = req.user;
-  const { date } = req.body;
+  const { waterVolume, date } = req.body;
 
-  const waterDate = await WaterValue.findOne({ date, owner });
+  const formattedDate = putZeroSec(date);
+
+  const waterDate = await WaterValue.findOne({ date: formattedDate, owner });
   if (waterDate) {
     throw HttpError(
       409,
-      `WaterVolume with this date ${date} already exists in DB`
+      `WaterVolume with this date ${formattedDate} already exists in DB`
     );
   }
-  const result = await WaterValue.create({ ...req.body, owner });
+  const result = await WaterValue.create({
+    waterVolume,
+    date: formattedDate,
+    owner,
+  });
 
   res.status(201).json(result);
 };
+
 const updateWaterValueByID = async (req, res) => {
   const { id } = req.params;
   const { _id: owner } = req.user;
@@ -37,23 +44,26 @@ const updateWaterValueByID = async (req, res) => {
     throw HttpError(404, "WaterVolume not found");
   }
 
-  if (date && date !== existingRecord.date) {
+  let formattedDate = null;
+  if (date) {
+    formattedDate = putZeroSec(date);
+
     const dateConflict = await WaterValue.findOne({
-      date,
+      date: formattedDate,
       owner,
       _id: { $ne: id },
     });
     if (dateConflict) {
       throw HttpError(
         409,
-        `WaterVolume with this date ${date} already exists in DB`
+        `WaterVolume with this date ${formattedDate} already exists in DB`
       );
     }
   }
 
   const result = await WaterValue.findOneAndUpdate(
     { _id: id, owner },
-    { waterVolume, date },
+    { waterVolume, date: formattedDate || existingRecord.date },
     { new: true }
   );
 
